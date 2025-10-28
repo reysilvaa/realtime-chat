@@ -1,29 +1,27 @@
 {
-  "name": "realtime-chat",
-  "version": "1.0.0",
-  "description": "Aplikasi chat realtime berbasis web dengan HTML, CSS, JS dan Supabase",
-  "main": "index.html",
+  "name": "reynisa-app-sveltekit",
+  "version": "2.0.0",
+  "description": "ReyNisa App - Real-time chat dengan SvelteKit & TypeScript",
+  "type": "module",
   "scripts": {
-    "start": "python -m http.server 8000",
-    "serve": "npx serve .",
-    "deploy": "netlify deploy --prod --dir ."
-  },
-  "keywords": [
-    "chat",
-    "realtime",
-    "supabase",
-    "netlify",
-    "javascript",
-    "html",
-    "css"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/realtime-chat.git"
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "deploy": "netlify deploy --prod --dir build"
   },
   "devDependencies": {
-    "serve": "^14.2.1"
+    "@sveltejs/adapter-static": "^3.0.1",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^5.0.1",
+    "svelte": "^5.2.7",
+    "svelte-check": "^4.0.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3",
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
   }
 }

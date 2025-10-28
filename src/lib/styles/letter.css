@@ -1,0 +1,221 @@
+/* iOS Style Letter/Document */
+
+.letter-section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* iOS Letter Actions */
+.letter-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: var(--ios-spacing);
+  padding: 0 var(--ios-spacing);
+}
+
+.letter-actions button {
+  flex: 1;
+  min-height: 50px;
+}
+
+/* iOS Letter Container */
+.letter-container {
+  background: var(--ios-bg-primary);
+  border-radius: var(--ios-radius-lg);
+  padding: var(--ios-spacing-xl);
+  box-shadow: var(--ios-shadow);
+  margin: 0 var(--ios-spacing);
+  margin-bottom: var(--ios-spacing);
+}
+
+.letter-content {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* iOS Letter Header */
+.letter-header {
+  text-align: center;
+  margin-bottom: var(--ios-spacing-xl);
+  padding-bottom: var(--ios-spacing-lg);
+  border-bottom: 2px solid var(--ios-separator);
+}
+
+.letter-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: var(--ios-label-primary);
+  margin-bottom: 8px;
+}
+
+.letter-subtitle {
+  font-size: 17px;
+  color: var(--ios-label-secondary);
+  letter-spacing: -0.408px;
+}
+
+/* iOS Letter Body */
+.letter-body {
+  font-size: 17px;
+  line-height: 1.58823;
+  letter-spacing: -0.408px;
+  color: var(--ios-label-primary);
+}
+
+.letter-body p {
+  margin-bottom: var(--ios-spacing);
+  color: var(--ios-label-primary);
+}
+
+/* iOS Letter Details */
+.letter-details {
+  background: var(--ios-gray6);
+  border-radius: var(--ios-radius);
+  padding: var(--ios-spacing);
+  margin: var(--ios-spacing-lg) 0;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 0.5px solid var(--ios-separator);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ios-label-secondary);
+  letter-spacing: -0.24px;
+  flex-shrink: 0;
+  margin-right: var(--ios-spacing);
+}
+
+.detail-value {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ios-label-primary);
+  letter-spacing: -0.408px;
+  text-align: right;
+}
+
+/* iOS Letter Footer */
+.letter-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ios-spacing-xl);
+  margin-top: var(--ios-spacing-xl);
+  padding-top: var(--ios-spacing-xl);
+  border-top: 2px solid var(--ios-separator);
+}
+
+.signature-section {
+  text-align: center;
+}
+
+.signature-section p {
+  font-size: 15px;
+  color: var(--ios-label-secondary);
+  margin-bottom: 40px;
+}
+
+.signature-line {
+  height: 1px;
+  background: var(--ios-separator-opaque);
+  margin: 0 auto 8px;
+  max-width: 200px;
+}
+
+.signature-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ios-label-primary);
+  letter-spacing: -0.408px;
+  margin-bottom: 4px;
+}
+
+.signature-section small {
+  font-size: 13px;
+  color: var(--ios-label-tertiary);
+  letter-spacing: -0.08px;
+}
+
+/* Print Styles */
+@media print {
+  .letter-actions {
+    display: none;
+  }
+  
+  .letter-container {
+    box-shadow: none;
+    border: 1px solid var(--ios-separator);
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .letter-body {
+    font-size: 12pt;
+    color: #000;
+  }
+  
+  .detail-label,
+  .detail-value {
+    font-size: 11pt;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .letter-container {
+    padding: var(--ios-spacing);
+    border-radius: var(--ios-radius);
+  }
+  
+  .letter-footer {
+    grid-template-columns: 1fr;
+    gap: var(--ios-spacing-lg);
+  }
+  
+  .letter-title {
+    font-size: 24px;
+  }
+  
+  .detail-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .detail-value {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .letter-section {
+    margin: 0;
+  }
+  
+  .letter-actions {
+    padding: 0;
+    flex-direction: column;
+  }
+  
+  .letter-container {
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .letter-header {
+    margin-bottom: var(--ios-spacing);
+  }
+  
+  .letter-details {
+    padding: 12px;
+  }
+}

@@ -1,0 +1,278 @@
+/* iOS Style Buttons */
+
+/* Primary iOS Button */
+.btn-primary, button[type="submit"] {
+  background: var(--ios-blue);
+  color: white;
+  border: none;
+  border-radius: var(--ios-radius-sm);
+  padding: 13px 20px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.408px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 50px;
+}
+
+.btn-primary:active {
+  opacity: 0.6;
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Secondary iOS Button */
+.btn-secondary {
+  background: var(--ios-gray6);
+  color: var(--ios-blue);
+  border: none;
+  border-radius: var(--ios-radius-sm);
+  padding: 13px 20px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.408px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 50px;
+}
+
+.btn-secondary:active {
+  opacity: 0.6;
+  background: var(--ios-gray5);
+  transform: scale(0.98);
+}
+
+/* Success Button */
+.btn-success {
+  background: var(--ios-green);
+  color: white;
+  border: none;
+  border-radius: var(--ios-radius-sm);
+  padding: 13px 20px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.408px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 50px;
+}
+
+.btn-success:active {
+  opacity: 0.6;
+  transform: scale(0.98);
+}
+
+/* Ghost Button (Borderless) */
+.btn-ghost {
+  background: transparent;
+  color: var(--ios-blue);
+  border: none;
+  border-radius: var(--ios-radius-sm);
+  padding: 8px 12px;
+  font-size: 17px;
+  font-weight: 400;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-ghost:active {
+  opacity: 0.6;
+  background: rgba(0, 122, 255, 0.1);
+}
+
+/* Icon Button */
+.btn-icon {
+  background: var(--ios-gray6);
+  color: var(--ios-blue);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-icon:active {
+  opacity: 0.6;
+  background: var(--ios-gray5);
+  transform: scale(0.95);
+}
+
+.btn-icon.danger {
+  color: var(--ios-red);
+}
+
+/* Floating Action Button (iOS Style) */
+.fab {
+  position: fixed;
+  bottom: calc(var(--ios-spacing-xl) + env(safe-area-inset-bottom));
+  right: var(--ios-spacing);
+  width: 56px;
+  height: 56px;
+  background: var(--ios-blue);
+  color: white;
+  border: none;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  z-index: 999;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fab:active {
+  transform: scale(0.92);
+}
+
+.fab i {
+  font-size: 24px;
+}
+
+/* iOS List Button */
+.list-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px var(--ios-spacing);
+  background: var(--ios-bg-primary);
+  border: none;
+  border-bottom: 0.5px solid var(--ios-separator);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  font-size: 17px;
+  color: var(--ios-label-primary);
+}
+
+.list-button:last-child {
+  border-bottom: none;
+}
+
+.list-button:active {
+  background: var(--ios-gray6);
+}
+
+.list-button .chevron {
+  color: var(--ios-gray3);
+  font-size: 14px;
+}
+
+/* Segmented Control (iOS Style) */
+.segmented-control {
+  display: inline-flex;
+  background: var(--ios-gray6);
+  border-radius: var(--ios-radius-sm);
+  padding: 2px;
+  gap: 2px;
+}
+
+.segmented-control button {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: var(--ios-label-primary);
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.segmented-control button.active {
+  background: var(--ios-bg-primary);
+  box-shadow: var(--ios-shadow-sm);
+}
+
+.segmented-control button:active {
+  opacity: 0.6;
+}
+
+/* iOS Toggle/Switch Style Button */
+.toggle-button {
+  position: relative;
+  display: inline-block;
+  width: 51px;
+  height: 31px;
+}
+
+.toggle-button input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--ios-gray5);
+  transition: 0.3s;
+  border-radius: 31px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 27px;
+  width: 27px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input:checked + .toggle-slider {
+  background-color: var(--ios-green);
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .btn-primary, .btn-secondary, .btn-success {
+    font-size: 16px;
+    padding: 12px 18px;
+  }
+}

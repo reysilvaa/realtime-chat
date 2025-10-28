@@ -1,0 +1,223 @@
+/* iOS Responsive Design */
+
+/* Large Devices (Desktop) */
+@media (min-width: 1024px) {
+  .main-content {
+    max-width: 1200px;
+    padding-left: var(--ios-spacing-xl);
+    padding-right: var(--ios-spacing-xl);
+  }
+  
+  .feature-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--ios-spacing);
+  }
+  
+  .feature-card {
+    min-height: 160px;
+  }
+}
+
+/* Medium Devices (Tablets) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-content {
+    max-width: 960px;
+    padding-left: var(--ios-spacing-lg);
+    padding-right: var(--ios-spacing-lg);
+  }
+  
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .messages-container {
+    padding-left: var(--ios-spacing-lg);
+    padding-right: var(--ios-spacing-lg);
+  }
+}
+
+/* Small Devices (Mobile) */
+@media (max-width: 767px) {
+  :root {
+    --ios-spacing: 12px;
+    --ios-spacing-lg: 20px;
+    --ios-spacing-xl: 28px;
+  }
+  
+  .app-header {
+    height: 56px;
+  }
+  
+  .main-content {
+    padding-top: calc(56px + 12px);
+  }
+  
+  h1 {
+    font-size: 28px;
+  }
+  
+  h2 {
+    font-size: 24px;
+  }
+  
+  h3 {
+    font-size: 20px;
+  }
+}
+
+/* Extra Small Devices (iPhone SE, etc) */
+@media (max-width: 375px) {
+  :root {
+    --ios-spacing: 10px;
+    --ios-spacing-lg: 16px;
+    --ios-spacing-xl: 24px;
+  }
+  
+  .welcome-section h2 {
+    font-size: 24px;
+  }
+  
+  .feature-card {
+    padding: 16px;
+    min-height: 110px;
+  }
+  
+  .card-icon {
+    font-size: 32px;
+  }
+  
+  .card-content h3 {
+    font-size: 16px;
+  }
+}
+
+/* Landscape Orientation */
+@media (orientation: landscape) and (max-height: 600px) {
+  .messages-container {
+    padding-top: calc(50px + 8px);
+    padding-bottom: calc(70px + 8px);
+  }
+  
+  .message-input-container {
+    padding: 6px 12px;
+  }
+  
+  .app-header {
+    height: 50px;
+  }
+  
+  .main-content {
+    padding-top: calc(50px + 8px);
+  }
+}
+
+/* iPhone Notch Support */
+@supports (padding: max(0px)) {
+  .app-header {
+    padding-top: max(0px, env(safe-area-inset-top));
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  
+  .message-input-container {
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+  }
+  
+  .main-content {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Touch Device Optimizations */
+@media (pointer: coarse) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-success {
+    min-height: 50px;
+  }
+  
+  .list-item {
+    padding: 14px 16px;
+  }
+  
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Dark Mode Support (iOS) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ios-bg-primary: #1C1C1E;
+    --ios-bg-secondary: #000000;
+    --ios-bg-tertiary: #2C2C2E;
+    --ios-bg-grouped: #000000;
+    
+    --ios-separator: rgba(84, 84, 88, 0.65);
+    --ios-separator-opaque: #38383A;
+    
+    --ios-label-primary: #FFFFFF;
+    --ios-label-secondary: rgba(235, 235, 245, 0.6);
+    --ios-label-tertiary: rgba(235, 235, 245, 0.3);
+    
+    --ios-gray: #8E8E93;
+    --ios-gray2: #636366;
+    --ios-gray3: #48484A;
+    --ios-gray4: #3A3A3C;
+    --ios-gray5: #2C2C2E;
+    --ios-gray6: #1C1C1E;
+  }
+  
+  .message.received .message-bubble {
+    background: var(--ios-gray4);
+    color: var(--ios-label-primary);
+  }
+  
+  .date-separator span {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  input,
+  textarea,
+  select {
+    background: var(--ios-bg-tertiary);
+    color: var(--ios-label-primary);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .app-header {
+    border-bottom: 1px solid var(--ios-separator-opaque);
+  }
+  
+  .list-item {
+    border-bottom: 1px solid var(--ios-separator-opaque);
+  }
+  
+  .feature-card {
+    box-shadow: 0 0 0 1px var(--ios-separator-opaque);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .app-header,
+  .message-input-container,
+  .dev-user-selector,
+  .notifications-container,
+  .fab {
+    display: none !important;
+  }
+  
+  .main-content {
+    padding: 0;
+  }
+  
+  * {
+    background: white !important;
+    color: black !important;
+  }
+}

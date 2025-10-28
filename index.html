@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realtime App - Rey & Annisa</title>
+    <title>ReyNisa App</title>
     
     <!-- CSS Modules -->
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/landing.css">
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -17,7 +21,7 @@
         <div class="app-header">
             <div class="header-content">
                 <i class="fas fa-heart"></i>
-                <h1>Rey & Annisa</h1>
+                <h1>ReyNisa App</h1>
                 <div class="user-badge" id="userBadge">
                     <i class="fas fa-user-circle"></i>
                     <span id="userName">Loading...</span>
@@ -27,15 +31,15 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <div class="welcome-section">
+            <div class="welcome-section fade-in">
                 <h2>Selamat Datang! 👋</h2>
                 <p>Pilih fitur yang ingin Anda gunakan</p>
             </div>
 
-            <!-- Feature Cards -->
-            <div class="feature-grid">
-                <!-- Chat Feature -->
-                <a href="chat.html" class="feature-card chat-card">
+            <!-- App Grid -->
+            <div class="feature-grid spring-in">
+                <!-- Chat App -->
+                <a href="app/myChat.html" class="feature-card chat-card">
                     <div class="card-icon">
                         <i class="fas fa-comments"></i>
                     </div>
@@ -47,8 +51,8 @@
                     </div>
                 </a>
 
-                <!-- Izin Keluar Feature -->
-                <a href="izin-keluar.html" class="feature-card permit-card">
+                <!-- Izin Keluar App -->
+                <a href="app/myIzin.html" class="feature-card permit-card">
                     <div class="card-icon">
                         <i class="fas fa-file-alt"></i>
                     </div>
@@ -59,10 +63,30 @@
                         <span class="badge-count" id="permitBadge">0</span>
                     </div>
                 </a>
+
+                <!-- Calculator App -->
+                <a href="app/myCalculator.html" class="feature-card calc-card">
+                    <div class="card-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Calculator</h3>
+                    </div>
+                </a>
+
+                <!-- Settings App -->
+                <a href="app/mySettings.html" class="feature-card settings-card">
+                    <div class="card-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Settings</h3>
+                    </div>
+                </a>
             </div>
 
             <!-- Quick Stats -->
-            <div class="stats-section">
+            <div class="stats-section fade-in">
                 <div class="stat-item">
                     <i class="fas fa-envelope"></i>
                     <div class="stat-content">
@@ -78,7 +102,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
     </div>
 
     <!-- Supabase JS -->
