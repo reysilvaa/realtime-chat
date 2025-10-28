@@ -7,12 +7,54 @@
   
   let user = $state<User | null>(detectUser());
   let statsData = $stats;
+  let currentPage = $state(0);
+  let touchStartX = $state(0);
+  let touchEndX = $state(0);
+  let isDragging = $state(false);
+  let translateX = $state(0);
+  
+  const totalPages = 2;
   
   $effect(() => {
     if (!user) return;
     logDevInfo(user);
     loadStats(user.userName);
   });
+  
+  function handleTouchStart(e: TouchEvent) {
+    touchStartX = e.touches[0].clientX;
+    isDragging = true;
+  }
+  
+  function handleTouchMove(e: TouchEvent) {
+    if (!isDragging) return;
+    touchEndX = e.touches[0].clientX;
+    const diff = touchEndX - touchStartX;
+    translateX = -currentPage * 100 + (diff / window.innerWidth) * 100;
+  }
+  
+  function handleTouchEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    
+    const diff = touchEndX - touchStartX;
+    const threshold = 50;
+    
+    if (diff > threshold && currentPage > 0) {
+      currentPage--;
+    } else if (diff < -threshold && currentPage < totalPages - 1) {
+      currentPage++;
+    }
+    
+    translateX = -currentPage * 100;
+    touchStartX = 0;
+    touchEndX = 0;
+  }
+  
+  function goToPage(page: number) {
+    currentPage = page;
+    translateX = -currentPage * 100;
+  }
   
   const appIconClass = "flex flex-col items-center gap-2.5 no-underline transition-transform duration-200 active:scale-[0.88]";
   const appIconImageClass = "w-full aspect-square flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]";
@@ -56,8 +98,20 @@
     </div>
   </div>
   
-  <!-- iOS App Grid -->
-  <div class="grid grid-cols-4 gap-y-6 gap-x-5 mx-auto max-w-full relative z-10 px-0.5">
+  <!-- iOS App Grid Container with Swipe -->
+  <div 
+    class="relative z-10 overflow-hidden flex-1"
+    ontouchstart={handleTouchStart}
+    ontouchmove={handleTouchMove}
+    ontouchend={handleTouchEnd}
+  >
+    <div 
+      class="flex transition-transform duration-300 ease-out h-full"
+      style="transform: translateX({translateX}%)"
+    >
+      <!-- Page 1 -->
+      <div class="min-w-full px-2">
+        <div class="grid grid-cols-4 gap-y-6 gap-x-5 mx-auto max-w-full px-0.5">
     <!-- Messages -->
     <a href="/chat" class="{appIconClass}">
       <div class="{appIconImageClass} bg-[linear-gradient(135deg,#32D74B_0%,#248A3D_100%)]">
@@ -70,19 +124,19 @@
     </a>
     
     <!-- Safari -->
-    <a href="/settings" class="{appIconClass}">
+    <a href="/safari" class="{appIconClass}">
       <div class="{appIconImageClass} bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)]">
         <i class="fas fa-compass text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
       <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Safari</span>
     </a>
     
-    <!-- Photos -->
+    <!-- Permit (Izin Keluar) -->
     <a href="/permit" class="{appIconClass}">
       <div class="{appIconImageClass}" style="background: linear-gradient(135deg, #FF3B30 0%, #FF9500 50%, #FFCC00 100%);">
-        <i class="fas fa-image text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
+        <i class="fas fa-file-alt text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Photos</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Izin Keluar</span>
     </a>
     
     <!-- Camera -->
@@ -102,12 +156,12 @@
     </div>
     
     <!-- Clock -->
-    <div class="{appIconClass}">
+    <a href="/clock" class="{appIconClass}">
       <div class="{appIconImageClass} bg-black border-2 border-white">
         <i class="fas fa-clock text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
       <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Clock</span>
-    </div>
+    </a>
     
     <!-- Maps -->
     <div class="{appIconClass}">
@@ -118,28 +172,20 @@
     </div>
     
     <!-- Weather -->
-    <div class="{appIconClass}">
+    <a href="/weather" class="{appIconClass}">
       <div class="{appIconImageClass}" style="background: linear-gradient(180deg, #5AC8FA 0%, #007AFF 100%);">
         <i class="fas fa-cloud-sun text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
       <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Weather</span>
-    </div>
+    </a>
     
     <!-- Notes -->
-    <div class="{appIconClass}">
+    <a href="/notes" class="{appIconClass}">
       <div class="{appIconImageClass}" style="background: linear-gradient(180deg, #FFCC00 0%, #FF9500 100%);">
         <i class="fas fa-sticky-note text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
       <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Notes</span>
-    </div>
-    
-    <!-- Reminders -->
-    <div class="{appIconClass}">
-      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#FF453A_0%,#D22730_100%)]">
-        <i class="fas fa-check-circle text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
-      </div>
-      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Reminders</span>
-    </div>
+    </a>
     
     <!-- Calculator -->
     <a href="/calculator" class="{appIconClass}">
@@ -156,13 +202,27 @@
       </div>
       <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Settings</span>
     </a>
-    
-    <!-- Files (Permit) -->
-    <a href="/permit" class="{appIconClass}">
-      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)]">
-        <i class="fas fa-folder text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
+        </div>
       </div>
-      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Files</span>
+      
+      <!-- Page 2 -->
+      <div class="min-w-full px-2">
+        <div class="grid grid-cols-4 gap-y-6 gap-x-5 mx-auto max-w-full px-0.5">
+    
+    <!-- Reminders -->
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#FF453A_0%,#D22730_100%)]">
+        <i class="fas fa-check-circle text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
+      </div>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Reminders</span>
+    </div>
+    
+    <!-- Photos -->
+    <a href="/photos" class="{appIconClass}">
+      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)]">
+        <i class="fas fa-images text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
+      </div>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Photos</span>
     </a>
     
     <!-- Health -->
@@ -190,12 +250,20 @@
       </div>
       <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">App Store</span>
     </div>
+        </div>
+      </div>
+    </div>
   </div>
   
   <!-- Page Dots -->
   <div class="flex items-center justify-center gap-2 mt-auto mb-3">
-    <div class="w-7 h-2 rounded bg-white/95"></div>
-    <div class="w-2 h-2 rounded-full bg-white/25"></div>
+    {#each Array(totalPages) as _, i}
+      <button 
+        onclick={() => goToPage(i)}
+        class="transition-all duration-300 {currentPage === i ? 'w-7 h-2 rounded bg-white/95' : 'w-2 h-2 rounded-full bg-white/25'}"
+        aria-label="Go to page {i + 1}"
+      ></button>
+    {/each}
   </div>
   
   <!-- iOS Dock -->
@@ -206,11 +274,11 @@
       </div>
     </a>
     
-    <div class="{appIconClass}">
+    <a href="/safari" class="{appIconClass}">
       <div class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]">
         <i class="fas fa-compass text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-    </div>
+    </a>
     
     <div class="{appIconClass}">
       <div class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]" style="background: linear-gradient(135deg, #FF375F 0%, #FF2D55 100%);">
@@ -218,9 +286,9 @@
       </div>
     </div>
     
-    <a href="/permit" class="{appIconClass}">
+    <a href="/photos" class="{appIconClass}">
       <div class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]">
-        <i class="fas fa-folder text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
+        <i class="fas fa-images text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
     </a>
   </div>
