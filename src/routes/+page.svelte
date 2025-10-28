@@ -4,14 +4,25 @@
   import { stats, loadStats } from '$lib/stores/stats';
   import { logDevInfo } from '$lib/utils/devTools';
   import DevSelector from '$lib/components/shared/DevSelector.svelte';
+  import ControlCenter from '$lib/components/shared/ControlCenter.svelte';
   
   let user = $state<User | null>(detectUser());
   let statsData = $stats;
+  let showControlCenter = $state(false);
   let currentPage = $state(0);
   let touchStartX = $state(0);
   let touchEndX = $state(0);
   let isDragging = $state(false);
   let translateX = $state(0);
+  
+  // Haptic button drag
+  let buttonY = $state(60);
+  let buttonX = $state('right');
+  let isDraggingButton = $state(false);
+  let dragStartX = $state(0);
+  let dragStartY = $state(0);
+  let dragOffsetX = $state(0);
+  let dragOffsetY = $state(0);
   
   const totalPages = 2;
   
@@ -54,6 +65,40 @@
   function goToPage(page: number) {
     currentPage = page;
     translateX = -currentPage * 100;
+  }
+  
+  // Haptic button drag handlers
+  function handleButtonTouchStart(e: TouchEvent) {
+    isDraggingButton = true;
+    dragStartX = e.touches[0].clientX;
+    dragStartY = e.touches[0].clientY;
+    
+    const button = e.currentTarget as HTMLElement;
+    const rect = button.getBoundingClientRect();
+    dragOffsetX = dragStartX - rect.left;
+    dragOffsetY = dragStartY - rect.top;
+  }
+  
+  function handleButtonTouchMove(e: TouchEvent) {
+    if (!isDraggingButton) return;
+    e.preventDefault();
+    
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    
+    // Update Y position
+    buttonY = Math.max(60, Math.min(window.innerHeight - 100, currentY - dragOffsetY));
+  }
+  
+  function handleButtonTouchEnd(e: TouchEvent) {
+    if (!isDraggingButton) return;
+    isDraggingButton = false;
+    
+    const touch = e.changedTouches[0];
+    const centerX = touch.clientX;
+    
+    // Snap to nearest edge
+    buttonX = centerX < window.innerWidth / 2 ? 'left' : 'right';
   }
   
   const appIconClass = "flex flex-col items-center gap-2.5 no-underline transition-transform duration-200 active:scale-[0.88]";
@@ -293,5 +338,22 @@
     </a>
   </div>
   
+  <!-- Control Center Button -->
+  <button
+    onclick={() => !isDraggingButton && (showControlCenter = !showControlCenter)}
+    ontouchstart={handleButtonTouchStart}
+    ontouchmove={handleButtonTouchMove}
+    ontouchend={handleButtonTouchEnd}
+    class="fixed w-14 h-14 rounded-full bg-white/15 border border-white/20 z-[100] shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex items-center justify-center {isDraggingButton ? '' : 'transition-all duration-300 active:scale-95'}"
+    style="top: {buttonY}px; {buttonX}: 16px; backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); {isDraggingButton ? 'transition: none;' : ''}"
+  >
+    <div class="flex flex-col gap-1">
+      <div class="w-6 h-[2px] bg-white/60 rounded-full"></div>
+      <div class="w-6 h-[2px] bg-white/60 rounded-full"></div>
+      <div class="w-6 h-[2px] bg-white/60 rounded-full"></div>
+    </div>
+  </button>
+  
+  <ControlCenter bind:isOpen={showControlCenter} />
   <DevSelector />
 </div>
