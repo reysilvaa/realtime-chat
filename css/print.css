@@ -1,0 +1,26 @@
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+    
+    .app-header,
+    .letter-actions,
+    .history-section,
+    .form-section,
+    .notification {
+        display: none !important;
+    }
+    
+    .letter-container {
+        box-shadow: none;
+        padding: 20px;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .letter-content {
+        font-size: 12pt;
+    }
+}

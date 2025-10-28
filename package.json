@@ -1,0 +1,29 @@
+{
+  "name": "realtime-chat",
+  "version": "1.0.0",
+  "description": "Aplikasi chat realtime berbasis web dengan HTML, CSS, JS dan Supabase",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx serve .",
+    "deploy": "netlify deploy --prod --dir ."
+  },
+  "keywords": [
+    "chat",
+    "realtime",
+    "supabase",
+    "netlify",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/realtime-chat.git"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
