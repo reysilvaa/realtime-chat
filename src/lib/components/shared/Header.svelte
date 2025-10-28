@@ -12,7 +12,11 @@
   let { title, backLink, user = null, showStatus = false, status = 'connecting' }: Props = $props();
 </script>
 
-<div class="fixed top-[47px] left-0 right-0 z-[1000] px-4 h-11 flex items-center bg-black/92 backdrop-blur-[25px] border-b border-white/[0.08]" style="backdrop-filter: saturate(180%) blur(25px); -webkit-backdrop-filter: saturate(180%) blur(25px);">
+<!-- Combined blur background for StatusBar + Header -->
+<div class="fixed top-0 left-0 right-0 h-[91px] z-[1000] bg-black/92 backdrop-blur-[25px] border-b border-white/[0.08]" style="backdrop-filter: saturate(180%) blur(25px); -webkit-backdrop-filter: saturate(180%) blur(25px);"></div>
+
+<!-- Header content -->
+<div class="fixed top-[47px] left-0 right-0 z-[1001] px-4 h-11 flex items-center">
   <div class="flex items-center gap-3 w-full">
     {#if backLink}
       <a href={backLink} class="flex items-center gap-1.5 px-2 py-2 -ml-2 rounded-lg transition-all no-underline text-[#0A84FF] active:opacity-60 active:bg-[#0A84FF]/15">

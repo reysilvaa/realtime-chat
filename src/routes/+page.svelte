@@ -344,13 +344,17 @@
     ontouchstart={handleButtonTouchStart}
     ontouchmove={handleButtonTouchMove}
     ontouchend={handleButtonTouchEnd}
-    class="fixed w-14 h-14 rounded-full bg-white/15 border border-white/20 z-[100] shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex items-center justify-center {isDraggingButton ? '' : 'transition-all duration-300 active:scale-95'}"
+    class="fixed w-14 h-14 rounded-full bg-gradient-to-br from-white/25 to-white/15 border border-white/30 z-[100] shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex items-center justify-center {isDraggingButton ? '' : 'transition-all duration-300 active:scale-95'}"
     style="top: {buttonY}px; {buttonX}: 16px; backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); {isDraggingButton ? 'transition: none;' : ''}"
   >
-    <div class="flex flex-col gap-1">
-      <div class="w-6 h-[2px] bg-white/60 rounded-full"></div>
-      <div class="w-6 h-[2px] bg-white/60 rounded-full"></div>
-      <div class="w-6 h-[2px] bg-white/60 rounded-full"></div>
+    <!-- Concentric circles design with heavy blur -->
+    <div class="relative w-8 h-8 flex items-center justify-center">
+      <!-- Outer ring (heavily blurred) -->
+      <div class="absolute w-9 h-9 rounded-full bg-white/30" style="filter: blur(3px);"></div>
+      <!-- Middle ring (heavily blurred) -->
+      <div class="absolute w-6 h-6 rounded-full bg-white/45" style="filter: blur(2px);"></div>
+      <!-- Inner circle (soft blur) -->
+      <div class="absolute w-3.5 h-3.5 rounded-full bg-white/60" style="filter: blur(1.5px);"></div>
     </div>
   </button>
   

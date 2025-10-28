@@ -29,7 +29,7 @@
   });
 </script>
 
-<div class="absolute top-0 left-0 right-0 h-[47px] flex items-center justify-between px-6 pt-2 text-white text-[15px] font-semibold z-[9999] bg-transparent">
+<div class="fixed top-0 left-0 right-0 h-[47px] flex items-center justify-between px-6 pt-2 text-white text-[15px] font-semibold z-[1001] bg-transparent">
   <div class="flex items-center gap-1.5">
     <span class="text-[15px] tracking-[-0.3px]" style="font-feature-settings: 'tnum';">{time}</span>
   </div>
