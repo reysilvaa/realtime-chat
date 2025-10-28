@@ -63,7 +63,7 @@
   <title>Chat - ReyNisa App</title>
 </svelte:head>
 
-<div class="app-container">
+<div class="min-h-full h-full flex flex-col bg-[#F2F2F7]">
   <Header 
     title={recipientName} 
     backLink="/" 
@@ -71,7 +71,11 @@
     status={$connectionStatus}
   />
   
-  <div class="messages-container fade-in" bind:this={messagesContainer}>
+  <div 
+    class="flex-1 overflow-y-auto px-4 bg-black animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]"
+    style="padding-top: calc(91px + 16px); padding-bottom: calc(80px + 16px); -webkit-overflow-scrolling: touch;"
+    bind:this={messagesContainer}
+  >
     {#if user}
       <MessageList currentUserName={user.userName} />
     {/if}

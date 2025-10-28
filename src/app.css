@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* iOS 17/18 Design System - Modern Variables */
+@layer base {
+  :root {
+    /* iOS 17 System Colors - More vibrant */
+    --ios-blue: #0A84FF;
+    --ios-green: #30D158;
+    --ios-red: #FF453A;
+    --ios-orange: #FF9F0A;
+    --ios-yellow: #FFD60A;
+    --ios-purple: #BF5AF2;
+    --ios-pink: #FF375F;
+    --ios-teal: #64D2FF;
+    
+    /* Gray palette */
+    --ios-gray: #8E8E93;
+    --ios-gray2: #AEAEB2;
+    --ios-gray3: #C7C7CC;
+    --ios-gray4: #D1D1D6;
+    --ios-gray5: #E5E5EA;
+    --ios-gray6: #F2F2F7;
+    
+    /* Modern spacing */
+    --ios-spacing: 16px;
+    --ios-spacing-lg: 24px;
+    --ios-spacing-xl: 32px;
+  }
+  
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  body {
+    @apply bg-black text-black overflow-hidden min-h-screen m-0 p-0;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+    line-height: 1.47059;
+    font-size: 17px;
+    letter-spacing: -0.408px;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold;
+    letter-spacing: -0.5px;
+  }
+  
+  a {
+    @apply no-underline transition-all duration-200;
+    color: var(--ios-blue);
+  }
+  
+  a:active {
+    @apply opacity-60;
+  }
+  
+  input, textarea, select {
+    font-family: inherit;
+    @apply text-base px-4 py-3 rounded-[12px] outline-none transition-all;
+    border: 0.5px solid rgba(60, 60, 67, 0.12);
+    -webkit-appearance: none;
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--ios-blue);
+  }
+  
+  ::-webkit-scrollbar {
+    @apply w-0 h-0;
+  }
+}
+
+/* Animations */
+@layer utilities {
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes spring-in {
+    0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+    50% { transform: scale(1.02) translateY(-5px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  
+  .fade-in {
+    animation: fade-in 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+  
+  .spring-in {
+    animation: spring-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

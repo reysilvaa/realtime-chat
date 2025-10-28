@@ -23,59 +23,59 @@
   });
 </script>
 
-<div class="letter-section">
-  <div class="letter-actions">
-    <button class="btn-secondary" onclick={onEdit}>
+<div class="mb-6">
+  <div class="flex gap-3 mb-4">
+    <button class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[17px] font-semibold border-none rounded-[14px] cursor-pointer min-h-[52px] bg-white/10 text-white transition-all active:opacity-60 active:scale-95" onclick={onEdit}>
       <i class="fas fa-edit"></i>
       Edit
     </button>
-    <button class="btn-primary" onclick={onPrint}>
+    <button class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[17px] font-semibold text-white border-none rounded-[14px] cursor-pointer min-h-[52px] bg-[#0A84FF] transition-all active:opacity-60 active:scale-95" onclick={onPrint}>
       <i class="fas fa-print"></i>
       Print
     </button>
-    <button class="btn-success" onclick={onSave}>
+    <button class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[17px] font-semibold text-white border-none rounded-[14px] cursor-pointer min-h-[52px] bg-[#30D158] transition-all active:opacity-60 active:scale-95" onclick={onSave}>
       <i class="fas fa-save"></i>
       Simpan
     </button>
   </div>
 
-  <div class="letter-container" id="letterContainer">
-    <div class="letter-content">
-      <div class="letter-header">
-        <div class="letter-title">Surat Izin Keluar</div>
-        <div class="letter-subtitle">Kepada Yang Tercinta</div>
+  <div class="bg-white/10 backdrop-blur-xl rounded-[20px] p-8 border border-white/10" id="letterContainer">
+    <div>
+      <div class="text-center mb-8 pb-4 border-b-2 border-[#0A84FF]">
+        <div class="text-3xl font-bold text-white mb-2">Surat Izin Keluar</div>
+        <div class="text-lg text-[#0A84FF] italic">Kepada Yang Tercinta</div>
       </div>
       
-      <div class="letter-body">
+      <div class="space-y-4 text-white/90 leading-relaxed">
         <p>Kepada {letter.recipient_name} tersayang,</p>
         
         <p>Dengan hormat, melalui surat ini saya bermaksud untuk meminta izin keluar kepada Anda. Adapun rincian keperluan saya adalah sebagai berikut:</p>
         
-        <div class="letter-details">
-          <div class="detail-row">
-            <span class="detail-label">Nama Pemohon:</span>
-            <span class="detail-value">{letter.sender_name}</span>
+        <div class="bg-black/30 rounded-[12px] p-5 space-y-3 my-6 border border-white/10">
+          <div class="flex justify-between items-start border-b border-white/10 pb-2">
+            <span class="font-semibold text-white/70 min-w-[180px]">Nama Pemohon:</span>
+            <span class="text-white font-medium text-right">{letter.sender_name}</span>
           </div>
-          <div class="detail-row">
-            <span class="detail-label">Tanggal & Waktu Keluar:</span>
-            <span class="detail-value">{formatDateTime(letter.exit_date, letter.exit_time)}</span>
+          <div class="flex justify-between items-start border-b border-white/10 pb-2">
+            <span class="font-semibold text-white/70 min-w-[180px]">Tanggal & Waktu Keluar:</span>
+            <span class="text-white font-medium text-right">{formatDateTime(letter.exit_date, letter.exit_time)}</span>
           </div>
-          <div class="detail-row">
-            <span class="detail-label">Tanggal & Waktu Kembali:</span>
-            <span class="detail-value">{formatDateTime(letter.return_date, letter.return_time)}</span>
+          <div class="flex justify-between items-start border-b border-white/10 pb-2">
+            <span class="font-semibold text-white/70 min-w-[180px]">Tanggal & Waktu Kembali:</span>
+            <span class="text-white font-medium text-right">{formatDateTime(letter.return_date, letter.return_time)}</span>
           </div>
-          <div class="detail-row">
-            <span class="detail-label">Tujuan:</span>
-            <span class="detail-value">{letter.destination}</span>
+          <div class="flex justify-between items-start border-b border-white/10 pb-2">
+            <span class="font-semibold text-white/70 min-w-[180px]">Tujuan:</span>
+            <span class="text-white font-medium text-right">{letter.destination}</span>
           </div>
-          <div class="detail-row">
-            <span class="detail-label">Keperluan:</span>
-            <span class="detail-value">{letter.purpose}</span>
+          <div class="flex justify-between items-start border-b border-white/10 pb-2">
+            <span class="font-semibold text-white/70 min-w-[180px]">Keperluan:</span>
+            <span class="text-white font-medium text-right">{letter.purpose}</span>
           </div>
           {#if letter.companions}
-            <div class="detail-row">
-              <span class="detail-label">Dengan:</span>
-              <span class="detail-value">{letter.companions}</span>
+            <div class="flex justify-between items-start border-b border-white/10 pb-2">
+              <span class="font-semibold text-white/70 min-w-[180px]">Dengan:</span>
+              <span class="text-white font-medium text-right">{letter.companions}</span>
             </div>
           {/if}
         </div>
@@ -85,19 +85,19 @@
         <p>Demikian surat izin ini saya buat dengan sebenar-benarnya. Atas perhatian dan izin yang diberikan, saya ucapkan terima kasih.</p>
       </div>
       
-      <div class="letter-footer">
-        <div class="signature-section">
-          <p>Mengetahui,</p>
-          <div class="signature-line"></div>
-          <div class="signature-name">{letter.recipient_name}</div>
-          <small>(Yang Memberikan Izin)</small>
+      <div class="grid grid-cols-2 gap-8 mt-12 pt-6 border-t border-white/10">
+        <div class="text-center">
+          <p class="text-white/90">Mengetahui,</p>
+          <div class="w-full h-[1px] bg-white/20 my-16"></div>
+          <div class="font-bold text-white">{letter.recipient_name}</div>
+          <small class="text-white/60">(Yang Memberikan Izin)</small>
         </div>
         
-        <div class="signature-section">
-          <p>{currentDate}</p>
-          <div class="signature-line"></div>
-          <div class="signature-name">{letter.sender_name}</div>
-          <small>(Pemohon Izin)</small>
+        <div class="text-center">
+          <p class="text-white/90">{currentDate}</p>
+          <div class="w-full h-[1px] bg-white/20 my-16"></div>
+          <div class="font-bold text-white">{letter.sender_name}</div>
+          <small class="text-white/60">(Pemohon Izin)</small>
         </div>
       </div>
     </div>

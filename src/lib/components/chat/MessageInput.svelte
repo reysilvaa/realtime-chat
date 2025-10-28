@@ -63,13 +63,13 @@
   }
 </script>
 
-<div class="message-input-container">
+<div class="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-xl border-t border-white/10 z-50" style="backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);">
   {#if showEmoticons}
-    <div class="emoticon-picker show">
-      <div class="emoticon-grid">
+    <div class="max-h-[240px] overflow-y-auto border-b border-white/10 bg-black/50 animate-[slideUp_0.2s_ease-out]">
+      <div class="grid grid-cols-8 gap-2 p-4">
         {#each EMOTICONS as emoji}
           <span
-            class="emoticon"
+            class="text-3xl text-center cursor-pointer transition-transform hover:scale-125 active:scale-95 p-2 rounded-lg hover:bg-white/10"
             role="button"
             tabindex="0"
             onclick={() => insertEmoji(emoji)}
@@ -82,14 +82,18 @@
     </div>
   {/if}
 
-  <form class="message-form" onsubmit={handleSubmit}>
+  <form class="flex items-end gap-3 p-4" onsubmit={handleSubmit}>
     <button
       type="button"
-      class="emoji-btn {showEmoticons ? 'active' : ''}"
+      class="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full transition-all {
+        showEmoticons 
+          ? 'bg-[#0A84FF] text-white' 
+          : 'text-[#0A84FF] hover:bg-white/10'
+      }"
       onclick={toggleEmoticons}
       aria-label="Toggle emoticons"
     >
-      <i class="fas fa-smile"></i>
+      <i class="fas fa-smile text-xl"></i>
     </button>
 
     <textarea
@@ -100,15 +104,34 @@
       placeholder="Ketik pesan..."
       rows="1"
       maxlength="1000"
+      class="flex-1 bg-[#1C1C1E] text-white px-4 py-3 rounded-[20px] resize-none outline-none border border-white/10 placeholder:text-white/40 focus:border-[#0A84FF] transition-colors max-h-[120px] overflow-y-auto"
+      style="font-size: 17px; letter-spacing: -0.408px;"
     ></textarea>
 
     <button
       type="submit"
-      class="send-btn"
+      class="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full transition-all {
+        message.trim() && !isSending
+          ? 'bg-[#0A84FF] text-white hover:opacity-80 active:scale-95'
+          : 'bg-white/10 text-white/30 cursor-not-allowed'
+      }"
       disabled={!message.trim() || isSending}
       aria-label="Send message"
     >
-      <i class="fas fa-paper-plane"></i>
+      <i class="fas fa-paper-plane text-base"></i>
     </button>
   </form>
 </div>
+
+<style>
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -80,10 +80,10 @@
   <title>Izin Keluar - ReyNisa App</title>
 </svelte:head>
 
-<div class="app-container">
+<div class="min-h-full h-full flex flex-col bg-black">
   <Header title="Izin Keluar" backLink="/" />
   
-  <div class="main-content">
+  <div class="flex-1 p-4 pt-[107px] max-w-full mx-auto overflow-y-auto bg-black" style="-webkit-overflow-scrolling: touch;">
     {#if !showPreview}
       {#if user}
         <LetterForm 

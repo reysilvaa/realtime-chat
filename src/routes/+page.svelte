@@ -4,7 +4,6 @@
   import { stats, loadStats } from '$lib/stores/stats';
   import { logDevInfo } from '$lib/utils/devTools';
   import DevSelector from '$lib/components/shared/DevSelector.svelte';
-  import '$lib/styles/ios-homescreen.css';
   
   let user = $state<User | null>(detectUser());
   let statsData = $stats;
@@ -14,207 +13,214 @@
     logDevInfo(user);
     loadStats(user.userName);
   });
+  
+  const appIconClass = "flex flex-col items-center gap-2.5 no-underline transition-transform duration-200 active:scale-[0.88]";
+  const appIconImageClass = "w-full aspect-square flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]";
+  const appNameClass = "text-[13px] font-medium text-white text-center max-w-full overflow-hidden text-ellipsis whitespace-nowrap";
 </script>
 
 <svelte:head>
   <title>iPhone - ReyNisa</title>
 </svelte:head>
 
-<div class="ios-homescreen">
+<div class="h-screen px-6 relative overflow-hidden flex flex-col bg-[radial-gradient(circle_at_30%_20%,rgba(139,92,246,0.25)_0%,transparent_35%),radial-gradient(circle_at_70%_60%,rgba(59,130,246,0.25)_0%,transparent_40%),radial-gradient(circle_at_50%_80%,rgba(249,115,22,0.2)_0%,transparent_35%),linear-gradient(180deg,#0a0a12_0%,#050508_100%)]" style="padding-top: 70px; padding-bottom: 110px;">
+  <!-- Blurred background effect -->
+  <div class="absolute inset-0 pointer-events-none opacity-40 blur-[60px]" style="background: radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.4) 0%, transparent 40%), radial-gradient(circle at 75% 75%, rgba(34, 211, 238, 0.3) 0%, transparent 40%);"></div>
+
   <!-- iOS Search -->
-  <div class="ios-search">
-    <i class="fas fa-search"></i>
-    <span>Search</span>
+  <div class="flex items-center gap-3 px-5 py-3.5 mb-6 rounded-[16px] cursor-pointer transition-all relative z-10 bg-white/12 backdrop-blur-[30px] shadow-[0_4px_16px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.15)] active:scale-[0.98] active:bg-white/15" style="backdrop-filter: saturate(180%) blur(30px); -webkit-backdrop-filter: saturate(180%) blur(30px);">
+    <i class="fas fa-search text-[17px] text-white/65"></i>
+    <span class="text-[17px] font-normal text-white/55" style="letter-spacing: -0.408px;">Search</span>
   </div>
   
   <!-- Widget -->
-  <div class="widget-area">
-    <div class="widget-header">
-      <span class="widget-title">Quick Stats</span>
+  <div class="mb-8 p-5 rounded-[26px] relative z-10 bg-white/10 backdrop-blur-[40px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(0,0,0,0.2)]" style="backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px);">
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-[16px] font-bold text-white" style="letter-spacing: -0.32px;">Quick Stats</span>
     </div>
-    <div class="widget-stats">
-      <div class="widget-stat">
-        <div class="widget-stat-value">{statsData.totalMessages}</div>
-        <div class="widget-stat-label">Messages</div>
+    <div class="flex gap-3">
+      <div class="flex-1 p-4 rounded-[18px] text-center bg-black/25 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]">
+        <div class="text-3xl font-bold text-white leading-none mb-1.5" style="letter-spacing: -0.6px;">{statsData.totalMessages}</div>
+        <div class="text-[13px] font-medium text-white/65" style="letter-spacing: -0.08px;">Messages</div>
       </div>
-      <div class="widget-stat">
-        <div class="widget-stat-value">{statsData.totalLetters}</div>
-        <div class="widget-stat-label">Letters</div>
+      <div class="flex-1 p-4 rounded-[18px] text-center bg-black/25 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]">
+        <div class="text-3xl font-bold text-white leading-none mb-1.5" style="letter-spacing: -0.6px;">{statsData.totalLetters}</div>
+        <div class="text-[13px] font-medium text-white/65" style="letter-spacing: -0.08px;">Letters</div>
       </div>
       {#if statsData.unreadMessages > 0}
-        <div class="widget-stat">
-          <div class="widget-stat-value">{statsData.unreadMessages}</div>
-          <div class="widget-stat-label">Unread</div>
+        <div class="flex-1 p-4 rounded-[18px] text-center bg-black/25 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]">
+          <div class="text-3xl font-bold text-white leading-none mb-1.5" style="letter-spacing: -0.6px;">{statsData.unreadMessages}</div>
+          <div class="text-[13px] font-medium text-white/65" style="letter-spacing: -0.08px;">Unread</div>
         </div>
       {/if}
     </div>
   </div>
   
   <!-- iOS App Grid -->
-  <div class="app-grid">
+  <div class="grid grid-cols-4 gap-y-6 gap-x-5 mx-auto max-w-full relative z-10 px-0.5">
     <!-- Messages -->
-    <a href="/chat" class="app-icon">
-      <div class="app-icon-image green">
-        <i class="fas fa-comment"></i>
+    <a href="/chat" class="{appIconClass}">
+      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#32D74B_0%,#248A3D_100%)]">
+        <i class="fas fa-comment text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
         {#if statsData.unreadMessages > 0}
-          <span class="app-badge">{statsData.unreadMessages}</span>
+          <span class="absolute -top-1.5 -right-1.5 text-white text-[11px] font-bold min-w-5 h-5 rounded-full flex items-center justify-center px-1.5 bg-[linear-gradient(135deg,#FF453A_0%,#FF3B30_100%)] shadow-[0_2px_8px_rgba(255,69,58,0.5),0_0_0_2px_rgba(0,0,0,0.8)]">{statsData.unreadMessages}</span>
         {/if}
       </div>
-      <span class="app-name">Messages</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Messages</span>
     </a>
     
     <!-- Safari -->
-    <a href="/settings" class="app-icon">
-      <div class="app-icon-image blue">
-        <i class="fas fa-compass"></i>
+    <a href="/settings" class="{appIconClass}">
+      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)]">
+        <i class="fas fa-compass text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Safari</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Safari</span>
     </a>
     
     <!-- Photos -->
-    <a href="/permit" class="app-icon">
-      <div class="app-icon-image" style="background: linear-gradient(135deg, #FF3B30 0%, #FF9500 50%, #FFCC00 100%);">
-        <i class="fas fa-image"></i>
+    <a href="/permit" class="{appIconClass}">
+      <div class="{appIconImageClass}" style="background: linear-gradient(135deg, #FF3B30 0%, #FF9500 50%, #FFCC00 100%);">
+        <i class="fas fa-image text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Photos</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Photos</span>
     </a>
     
     <!-- Camera -->
-    <div class="app-icon">
-      <div class="app-icon-image gray">
-        <i class="fas fa-camera"></i>
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#98989D_0%,#636366_100%)]">
+        <i class="fas fa-camera text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Camera</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Camera</span>
     </div>
     
     <!-- Mail -->
-    <div class="app-icon">
-      <div class="app-icon-image blue">
-        <i class="fas fa-envelope"></i>
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)]">
+        <i class="fas fa-envelope text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Mail</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Mail</span>
     </div>
     
     <!-- Clock -->
-    <div class="app-icon">
-      <div class="app-icon-image" style="background: #000; border: 2px solid #fff;">
-        <i class="fas fa-clock" style="color: white;"></i>
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass} bg-black border-2 border-white">
+        <i class="fas fa-clock text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Clock</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Clock</span>
     </div>
     
     <!-- Maps -->
-    <div class="app-icon">
-      <div class="app-icon-image" style="background: linear-gradient(135deg, #4CD964 0%, #5AC8FA 100%);">
-        <i class="fas fa-map-marker-alt"></i>
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass}" style="background: linear-gradient(135deg, #4CD964 0%, #5AC8FA 100%);">
+        <i class="fas fa-map-marker-alt text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Maps</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Maps</span>
     </div>
     
     <!-- Weather -->
-    <div class="app-icon">
-      <div class="app-icon-image" style="background: linear-gradient(180deg, #5AC8FA 0%, #007AFF 100%);">
-        <i class="fas fa-cloud-sun"></i>
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass}" style="background: linear-gradient(180deg, #5AC8FA 0%, #007AFF 100%);">
+        <i class="fas fa-cloud-sun text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Weather</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Weather</span>
     </div>
     
     <!-- Notes -->
-    <div class="app-icon">
-      <div class="app-icon-image" style="background: linear-gradient(180deg, #FFCC00 0%, #FF9500 100%);">
-        <i class="fas fa-sticky-note"></i>
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass}" style="background: linear-gradient(180deg, #FFCC00 0%, #FF9500 100%);">
+        <i class="fas fa-sticky-note text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Notes</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Notes</span>
     </div>
     
     <!-- Reminders -->
-    <div class="app-icon">
-      <div class="app-icon-image red">
-        <i class="fas fa-check-circle"></i>
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#FF453A_0%,#D22730_100%)]">
+        <i class="fas fa-check-circle text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Reminders</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Reminders</span>
     </div>
     
     <!-- Calculator -->
-    <a href="/calculator" class="app-icon">
-      <div class="app-icon-image" style="background: #1C1C1E;">
-        <i class="fas fa-calculator" style="color: #FF9F0A;"></i>
+    <a href="/calculator" class="{appIconClass}">
+      <div class="{appIconImageClass} bg-[#1C1C1E]">
+        <i class="fas fa-calculator text-[#FF9F0A]" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Calculator</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Calculator</span>
     </a>
     
     <!-- Settings -->
-    <a href="/settings" class="app-icon">
-      <div class="app-icon-image gray">
-        <i class="fas fa-cog"></i>
+    <a href="/settings" class="{appIconClass}">
+      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#98989D_0%,#636366_100%)]">
+        <i class="fas fa-cog text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Settings</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Settings</span>
     </a>
     
     <!-- Files (Permit) -->
-    <a href="/permit" class="app-icon">
-      <div class="app-icon-image blue">
-        <i class="fas fa-folder"></i>
+    <a href="/permit" class="{appIconClass}">
+      <div class="{appIconImageClass} bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)]">
+        <i class="fas fa-folder text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Files</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Files</span>
     </a>
     
     <!-- Health -->
-    <div class="app-icon">
-      <div class="app-icon-image" style="background: linear-gradient(135deg, #FF2D55 0%, #FF3B30 100%);">
-        <i class="fas fa-heartbeat"></i>
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass}" style="background: linear-gradient(135deg, #FF2D55 0%, #FF3B30 100%);">
+        <i class="fas fa-heartbeat text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Health</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Health</span>
     </div>
     
     <!-- Wallet -->
-    <div class="app-icon">
-      <div class="app-icon-image" style="background: #000;">
-        <i class="fas fa-wallet" style="color: white;"></i>
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass} bg-black">
+        <i class="fas fa-wallet text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
-      <span class="app-name">Wallet</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">Wallet</span>
     </div>
     
     <!-- App Store -->
-    <div class="app-icon">
-      <div class="app-icon-image" style="background: linear-gradient(135deg, #0A84FF 0%, #64D2FF 100%);">
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="white">
+    <div class="{appIconClass}">
+      <div class="{appIconImageClass}" style="background: linear-gradient(135deg, #0A84FF 0%, #64D2FF 100%);">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="white" class="w-[54%] h-[54%]" style="filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));">
           <path d="M12.5 3c-.3 0-.6.1-.8.4l-3 5.2c-.3.5-.1 1.2.4 1.4.5.3 1.2.1 1.4-.4l2-3.5 2 3.5c.2.4.6.6 1 .6.2 0 .3 0 .5-.1.5-.3.7-.9.4-1.4l-3-5.2c-.3-.3-.6-.5-.9-.5zm-6 4c-.3 0-.6.1-.8.4-.3.5-.1 1.2.4 1.4l8.5 4.9-1.7 3c-.3.5-.1 1.2.4 1.4.2.1.3.1.5.1.4 0 .7-.2.9-.5l2-3.5 2 3.5c.2.3.5.5.9.5.2 0 .3 0 .5-.1.5-.3.7-.9.4-1.4l-1.7-3 8.5-4.9c.5-.3.7-.9.4-1.4-.3-.5-.9-.7-1.4-.4l-8.5 4.9-8.5-4.9c-.1-.1-.3-.1-.4-.1zm-2 10c-.3 0-.6.1-.8.4-.3.5-.1 1.2.4 1.4l8 4.6c.2.1.3.1.5.1s.3 0 .5-.1l8-4.6c.5-.3.7-.9.4-1.4-.3-.5-.9-.7-1.4-.4l-7.5 4.3-7.5-4.3c-.2 0-.4-.1-.6-.1z"/>
         </svg>
       </div>
-      <span class="app-name">App Store</span>
+      <span class="{appNameClass}" style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);">App Store</span>
     </div>
   </div>
   
   <!-- Page Dots -->
-  <div class="page-dots">
-    <div class="page-dot active"></div>
-    <div class="page-dot"></div>
+  <div class="flex items-center justify-center gap-2 mt-auto mb-3">
+    <div class="w-7 h-2 rounded bg-white/95"></div>
+    <div class="w-2 h-2 rounded-full bg-white/25"></div>
   </div>
   
   <!-- iOS Dock -->
-  <div class="ios-dock">
-    <a href="/chat" class="app-icon">
-      <div class="app-icon-image green">
-        <i class="fas fa-comment"></i>
+  <div class="fixed left-1/2 -translate-x-1/2 flex gap-6 px-5 py-3.5 z-[100] rounded-[30px] bg-white/12 backdrop-blur-[40px] border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]" style="bottom: 20px; backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px);">
+    <a href="/chat" class="{appIconClass}">
+      <div class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#32D74B_0%,#248A3D_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]">
+        <i class="fas fa-comment text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
     </a>
     
-    <div class="app-icon">
-      <div class="app-icon-image blue">
-        <i class="fas fa-compass"></i>
+    <div class="{appIconClass}">
+      <div class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]">
+        <i class="fas fa-compass text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
     </div>
     
-    <div class="app-icon">
-      <div class="app-icon-image" style="background: linear-gradient(135deg, #FF375F 0%, #FF2D55 100%);">
-        <i class="fas fa-music"></i>
+    <div class="{appIconClass}">
+      <div class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]" style="background: linear-gradient(135deg, #FF375F 0%, #FF2D55 100%);">
+        <i class="fas fa-music text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
     </div>
     
-    <a href="/permit" class="app-icon">
-      <div class="app-icon-image blue">
-        <i class="fas fa-folder"></i>
+    <a href="/permit" class="{appIconClass}">
+      <div class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]">
+        <i class="fas fa-folder text-white" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"></i>
       </div>
     </a>
   </div>

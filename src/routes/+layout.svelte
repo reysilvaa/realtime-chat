@@ -6,17 +6,7 @@
   
   let { children }: { children: Snippet } = $props();
   
-  import '$lib/styles/base.css';
-  import '$lib/styles/header.css';
-  import '$lib/styles/buttons.css';
-  import '$lib/styles/notification.css';
-  import '$lib/styles/animations.css';
-  import '$lib/styles/landing.css';
-  import '$lib/styles/chat.css';
-  import '$lib/styles/form.css';
-  import '$lib/styles/letter.css';
-  import '$lib/styles/history.css';
-  import '$lib/styles/responsive.css';
+  import '../app.css';
   
   let isHomePage = $derived($page.url.pathname === '/');
 </script>

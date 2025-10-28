@@ -85,37 +85,39 @@
   <title>Calculator - ReyNisa App</title>
 </svelte:head>
 
-<div class="app-container">
+<div class="min-h-full h-full flex flex-col bg-black">
   <Header title="Calculator" backLink="/" />
   
-  <div class="main-content">
-    <div class="calculator-container fade-in">
-      <div class="calculator">
-        <div class="calculator-display">{display}</div>
+  <div class="flex-1 p-4 pt-[107px] max-w-full mx-auto overflow-y-auto bg-black" style="-webkit-overflow-scrolling: touch;">
+    <div class="flex justify-center items-center p-5 animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]" style="min-height: calc(100vh - 200px);">
+      <div class="bg-white/10 backdrop-blur-xl rounded-[24px] p-6 w-full max-w-md border border-white/10">
+        <div class="text-white px-6 py-8 rounded-[20px] text-right text-5xl font-semibold mb-5 min-h-[90px] flex items-center justify-end break-all shadow-[0_4px_16px_rgba(102,126,234,0.3)]" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          {display}
+        </div>
         
-        <div class="calculator-buttons">
-          <button class="btn-calc function" onclick={clear}>C</button>
-          <button class="btn-calc function" onclick={backspace}>←</button>
-          <button class="btn-calc function" onclick={() => setOperation('÷')}>÷</button>
-          <button class="btn-calc operator" onclick={() => setOperation('×')}>×</button>
+        <div class="grid grid-cols-4 gap-3">
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-red-500 text-white font-semibold cursor-pointer transition-all hover:bg-red-600 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={clear}>C</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-red-500 text-white font-semibold cursor-pointer transition-all hover:bg-red-600 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={backspace}>←</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-red-500 text-white font-semibold cursor-pointer transition-all hover:bg-red-600 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => setOperation('÷')}>÷</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-purple-600 text-white font-semibold cursor-pointer transition-all hover:bg-purple-700 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => setOperation('×')}>×</button>
           
-          <button class="btn-calc" onclick={() => appendNumber('7')}>7</button>
-          <button class="btn-calc" onclick={() => appendNumber('8')}>8</button>
-          <button class="btn-calc" onclick={() => appendNumber('9')}>9</button>
-          <button class="btn-calc operator" onclick={() => setOperation('-')}>-</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => appendNumber('7')}>7</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => appendNumber('8')}>8</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => appendNumber('9')}>9</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-purple-600 text-white font-semibold cursor-pointer transition-all hover:bg-purple-700 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => setOperation('-')}>-</button>
           
-          <button class="btn-calc" onclick={() => appendNumber('4')}>4</button>
-          <button class="btn-calc" onclick={() => appendNumber('5')}>5</button>
-          <button class="btn-calc" onclick={() => appendNumber('6')}>6</button>
-          <button class="btn-calc operator" onclick={() => setOperation('+')}>+</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => appendNumber('4')}>4</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => appendNumber('5')}>5</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => appendNumber('6')}>6</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-purple-600 text-white font-semibold cursor-pointer transition-all hover:bg-purple-700 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => setOperation('+')}>+</button>
           
-          <button class="btn-calc" onclick={() => appendNumber('1')}>1</button>
-          <button class="btn-calc" onclick={() => appendNumber('2')}>2</button>
-          <button class="btn-calc" onclick={() => appendNumber('3')}>3</button>
-          <button class="btn-calc equals" onclick={calculate}>=</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => appendNumber('1')}>1</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => appendNumber('2')}>2</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={() => appendNumber('3')}>3</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-green-500 text-white font-semibold cursor-pointer transition-all hover:bg-green-600 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 row-span-2" onclick={calculate}>=</button>
           
-          <button class="btn-calc zero" onclick={() => appendNumber('0')}>0</button>
-          <button class="btn-calc" onclick={appendDecimal}>.</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 col-span-2" onclick={() => appendNumber('0')}>0</button>
+          <button class="p-5 text-2xl border-none rounded-[16px] bg-gray-100 text-gray-800 font-semibold cursor-pointer transition-all hover:bg-gray-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95" onclick={appendDecimal}>.</button>
         </div>
       </div>
     </div>
@@ -124,109 +126,3 @@
   <DevSelector />
 </div>
 
-<style>
-  .calculator-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 200px);
-    padding: 20px;
-  }
-  
-  .calculator {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 400px;
-    width: 100%;
-  }
-  
-  .calculator-display {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 30px 20px;
-    border-radius: 15px;
-    text-align: right;
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    word-break: break-all;
-    min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-  
-  .calculator-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
-  
-  .btn-calc {
-    padding: 20px;
-    font-size: 1.5rem;
-    border: none;
-    border-radius: 12px;
-    background: #f8f9fa;
-    color: #333;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .btn-calc:hover {
-    background: #e9ecef;
-    transform: translateY(-2px);
-  }
-  
-  .btn-calc:active {
-    transform: translateY(0);
-  }
-  
-  .btn-calc.function {
-    background: #ff6b6b;
-    color: white;
-  }
-  
-  .btn-calc.function:hover {
-    background: #ee5a6f;
-  }
-  
-  .btn-calc.operator {
-    background: #667eea;
-    color: white;
-  }
-  
-  .btn-calc.operator:hover {
-    background: #5568d3;
-  }
-  
-  .btn-calc.equals {
-    background: #51cf66;
-    color: white;
-    grid-row: span 2;
-  }
-  
-  .btn-calc.equals:hover {
-    background: #40c057;
-  }
-  
-  .btn-calc.zero {
-    grid-column: span 2;
-  }
-  
-  @media (max-width: 768px) {
-    .calculator-display {
-      font-size: 2rem;
-      padding: 20px 15px;
-      min-height: 60px;
-    }
-    
-    .btn-calc {
-      padding: 15px;
-      font-size: 1.2rem;
-    }
-  }
-</style>
