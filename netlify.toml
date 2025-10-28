@@ -1,9 +1,9 @@
 [build]
-  # Tidak perlu build command karena ini static site
-  publish = "."
+  command = "npm run build"
+  publish = "build"
 
 [build.environment]
-  # Environment variables bisa diset di Netlify dashboard
+  NODE_VERSION = "18"
 
 [[headers]]
   # Apply to all files
@@ -30,11 +30,7 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[redirects]]
-  # SPA fallback - redirect all routes to index.html
   from = "/*"
   to = "/index.html"
   status = 200
-
-# Environment variables yang dibutuhkan:
-# SUPABASE_URL - URL project Supabase Anda
-# SUPABASE_ANON_KEY - Anonymous key dari Supabase project
+  force = false
