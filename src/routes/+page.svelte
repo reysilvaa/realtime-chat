@@ -34,18 +34,33 @@
   
   function handleTouchStart(e: TouchEvent) {
     touchStartX = e.touches[0].clientX;
-    isDragging = true;
+    touchEndX = e.touches[0].clientX;
+    isDragging = false; // Don't set to true immediately
   }
   
   function handleTouchMove(e: TouchEvent) {
-    if (!isDragging) return;
     touchEndX = e.touches[0].clientX;
-    const diff = touchEndX - touchStartX;
-    translateX = -currentPage * 100 + (diff / window.innerWidth) * 100;
+    const diff = Math.abs(touchEndX - touchStartX);
+    
+    // Only start dragging if movement is significant (more than 10px)
+    if (diff > 10) {
+      isDragging = true;
+    }
+    
+    if (!isDragging) return;
+    
+    const horizontalDiff = touchEndX - touchStartX;
+    translateX = -currentPage * 100 + (horizontalDiff / window.innerWidth) * 100;
   }
   
   function handleTouchEnd() {
-    if (!isDragging) return;
+    if (!isDragging) {
+      // This was a tap, not a swipe - reset and allow normal click
+      touchStartX = 0;
+      touchEndX = 0;
+      return;
+    }
+    
     isDragging = false;
     
     const diff = touchEndX - touchStartX;
