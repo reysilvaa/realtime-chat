@@ -57,84 +57,86 @@
   }
 </script>
 
-<div class="mb-6 animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]">
-  <div class="bg-white/10 backdrop-blur-xl rounded-[20px] p-6 border border-white/10">
-    <div class="text-center mb-6">
-      <i class="fas fa-heart text-4xl text-[#0A84FF] mb-3"></i>
-      <h2 class="text-2xl font-bold text-white mb-2">Buat Surat Izin Keluar</h2>
-      <p class="text-white/70 mb-4">Isi form di bawah untuk membuat surat izin keluar yang resmi</p>
-      <div class="flex items-center gap-2 bg-[#0A84FF]/20 text-[#0A84FF] px-4 py-3 rounded-[12px] text-sm border border-[#0A84FF]/30">
-        <i class="fas fa-magic"></i>
-        <span>Nama pembuat surat dan penerima akan terdeteksi otomatis berdasarkan device Anda</span>
+<div class="mb-4 animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]">
+  <!-- Header Card -->
+  <div class="bg-white rounded-[12px] p-6 mb-3 shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
+    <div class="text-center">
+      <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#FF9500] to-[#FF3B30] flex items-center justify-center shadow-lg">
+        <i class="fas fa-file-alt text-white text-2xl"></i>
       </div>
+      <h2 class="text-[22px] font-bold text-[#1C1C1E] mb-2" style="letter-spacing: -0.5px;">Buat Surat Izin</h2>
+      <p class="text-[#8E8E93] text-[15px] leading-tight" style="letter-spacing: -0.24px;">Isi form di bawah untuk membuat surat izin keluar</p>
     </div>
+  </div>
+  
+  <!-- Info Banner -->
+  <div class="bg-[#007AFF]/10 rounded-[12px] px-4 py-3 mb-4 flex items-start gap-3">
+    <i class="fas fa-info-circle text-[#007AFF] text-lg flex-shrink-0 mt-0.5"></i>
+    <p class="text-[#007AFF] text-[13px] leading-snug" style="letter-spacing: -0.08px;">Nama pembuat dan penerima otomatis terdeteksi dari device Anda</p>
+  </div>
+  
+  <!-- Form Card -->
+  <div class="bg-white rounded-[12px] p-4 shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
 
     <form class="space-y-4" onsubmit={handleSubmit}>
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label for="exitDate" class="flex items-center gap-2 text-sm font-semibold text-white mb-2">
-            <i class="fas fa-calendar text-[#0A84FF]"></i>
+          <label for="exitDate" class="block text-[13px] font-medium text-[#3C3C43] mb-1.5" style="letter-spacing: -0.08px;">
             Tanggal Keluar
           </label>
-          <input type="date" id="exitDate" bind:value={exitDate} required class="w-full px-4 py-3 rounded-[12px] bg-black/30 border border-white/10 text-white outline-none transition-all focus:border-[#0A84FF]">
+          <input type="date" id="exitDate" bind:value={exitDate} required class="w-full px-4 py-3 rounded-[10px] bg-[#F2F2F7] border border-transparent text-[#1C1C1E] outline-none transition-all focus:bg-white focus:border-[#007AFF] focus:shadow-[0_0_0_3px_rgba(0,122,255,0.1)]" style="font-size: 17px; letter-spacing: -0.408px;">
         </div>
         <div>
-          <label for="exitTime" class="flex items-center gap-2 text-sm font-semibold text-white mb-2">
-            <i class="fas fa-clock text-[#0A84FF]"></i>
+          <label for="exitTime" class="block text-[13px] font-medium text-[#3C3C43] mb-1.5" style="letter-spacing: -0.08px;">
             Jam Keluar
           </label>
-          <input type="time" id="exitTime" bind:value={exitTime} required class="w-full px-4 py-3 rounded-[12px] bg-black/30 border border-white/10 text-white outline-none transition-all focus:border-[#0A84FF]">
+          <input type="time" id="exitTime" bind:value={exitTime} required class="w-full px-4 py-3 rounded-[10px] bg-[#F2F2F7] border border-transparent text-[#1C1C1E] outline-none transition-all focus:bg-white focus:border-[#007AFF] focus:shadow-[0_0_0_3px_rgba(0,122,255,0.1)]" style="font-size: 17px; letter-spacing: -0.408px;">
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label for="returnDate" class="flex items-center gap-2 text-sm font-semibold text-white mb-2">
-            <i class="fas fa-calendar-check text-[#0A84FF]"></i>
+          <label for="returnDate" class="block text-[13px] font-medium text-[#3C3C43] mb-1.5" style="letter-spacing: -0.08px;">
             Tanggal Kembali
           </label>
-          <input type="date" id="returnDate" bind:value={returnDate} required class="w-full px-4 py-3 rounded-[12px] bg-black/30 border border-white/10 text-white outline-none transition-all focus:border-[#0A84FF]">
+          <input type="date" id="returnDate" bind:value={returnDate} required class="w-full px-4 py-3 rounded-[10px] bg-[#F2F2F7] border border-transparent text-[#1C1C1E] outline-none transition-all focus:bg-white focus:border-[#007AFF] focus:shadow-[0_0_0_3px_rgba(0,122,255,0.1)]" style="font-size: 17px; letter-spacing: -0.408px;">
         </div>
         <div>
-          <label for="returnTime" class="flex items-center gap-2 text-sm font-semibold text-white mb-2">
-            <i class="fas fa-clock text-[#0A84FF]"></i>
+          <label for="returnTime" class="block text-[13px] font-medium text-[#3C3C43] mb-1.5" style="letter-spacing: -0.08px;">
             Jam Kembali
           </label>
-          <input type="time" id="returnTime" bind:value={returnTime} required class="w-full px-4 py-3 rounded-[12px] bg-black/30 border border-white/10 text-white outline-none transition-all focus:border-[#0A84FF]">
+          <input type="time" id="returnTime" bind:value={returnTime} required class="w-full px-4 py-3 rounded-[10px] bg-[#F2F2F7] border border-transparent text-[#1C1C1E] outline-none transition-all focus:bg-white focus:border-[#007AFF] focus:shadow-[0_0_0_3px_rgba(0,122,255,0.1)]" style="font-size: 17px; letter-spacing: -0.408px;">
         </div>
       </div>
 
       <div>
-        <label for="destination" class="flex items-center gap-2 text-sm font-semibold text-white mb-2">
-          <i class="fas fa-map-marker-alt text-[#0A84FF]"></i>
+        <label for="destination" class="block text-[13px] font-medium text-[#3C3C43] mb-1.5" style="letter-spacing: -0.08px;">
           Tujuan
         </label>
-        <input type="text" id="destination" bind:value={destination} required placeholder="Mau pergi kemana?" class="w-full px-4 py-3 rounded-[12px] bg-black/30 border border-white/10 text-white placeholder:text-white/40 outline-none transition-all focus:border-[#0A84FF]">
+        <input type="text" id="destination" bind:value={destination} required placeholder="Mau pergi kemana?" class="w-full px-4 py-3 rounded-[10px] bg-[#F2F2F7] border border-transparent text-[#1C1C1E] placeholder:text-[#8E8E93] outline-none transition-all focus:bg-white focus:border-[#007AFF] focus:shadow-[0_0_0_3px_rgba(0,122,255,0.1)]" style="font-size: 17px; letter-spacing: -0.408px;">
       </div>
 
       <div>
-        <label for="purpose" class="flex items-center gap-2 text-sm font-semibold text-white mb-2">
-          <i class="fas fa-question-circle text-[#0A84FF]"></i>
+        <label for="purpose" class="block text-[13px] font-medium text-[#3C3C43] mb-1.5" style="letter-spacing: -0.08px;">
           Keperluan
         </label>
-        <textarea id="purpose" bind:value={purpose} required placeholder="Jelaskan keperluan Anda..." rows="3" class="w-full px-4 py-3 rounded-[12px] bg-black/30 border border-white/10 text-white placeholder:text-white/40 outline-none transition-all focus:border-[#0A84FF] resize-none"></textarea>
+        <textarea id="purpose" bind:value={purpose} required placeholder="Jelaskan keperluan Anda..." rows="3" class="w-full px-4 py-3 rounded-[10px] bg-[#F2F2F7] border border-transparent text-[#1C1C1E] placeholder:text-[#8E8E93] outline-none transition-all focus:bg-white focus:border-[#007AFF] focus:shadow-[0_0_0_3px_rgba(0,122,255,0.1)] resize-none" style="font-size: 17px; letter-spacing: -0.408px;"></textarea>
       </div>
 
       <div>
-        <label for="companions" class="flex items-center gap-2 text-sm font-semibold text-white mb-2">
-          <i class="fas fa-users text-[#0A84FF]"></i>
+        <label for="companions" class="block text-[13px] font-medium text-[#3C3C43] mb-1.5" style="letter-spacing: -0.08px;">
           Dengan Siapa? (Opsional)
         </label>
-        <input type="text" id="companions" bind:value={companions} placeholder="Nama teman/keluarga yang ikut" class="w-full px-4 py-3 rounded-[12px] bg-black/30 border border-white/10 text-white placeholder:text-white/40 outline-none transition-all focus:border-[#0A84FF]">
+        <input type="text" id="companions" bind:value={companions} placeholder="Nama teman/keluarga yang ikut" class="w-full px-4 py-3 rounded-[10px] bg-[#F2F2F7] border border-transparent text-[#1C1C1E] placeholder:text-[#8E8E93] outline-none transition-all focus:bg-white focus:border-[#007AFF] focus:shadow-[0_0_0_3px_rgba(0,122,255,0.1)]" style="font-size: 17px; letter-spacing: -0.408px;">
       </div>
 
       <div class="flex gap-3 pt-2">
-        <button type="button" class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[17px] font-semibold border-none rounded-[14px] cursor-pointer min-h-[52px] bg-white/10 text-white transition-all active:opacity-60 active:scale-95" onclick={handlePreviewClick}>
+        <button type="button" class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[17px] font-semibold border-none rounded-[10px] cursor-pointer min-h-[50px] bg-[#F2F2F7] text-[#007AFF] transition-all active:opacity-70 active:scale-[0.98]" style="letter-spacing: -0.408px;" onclick={handlePreviewClick}>
           <i class="fas fa-eye"></i>
-          Preview Surat
+          Preview
         </button>
-        <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[17px] font-semibold text-white border-none rounded-[14px] cursor-pointer min-h-[52px] bg-[#0A84FF] transition-all active:opacity-60 active:scale-95">
-          <i class="fas fa-file-alt"></i>
+        <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[17px] font-semibold text-white border-none rounded-[10px] cursor-pointer min-h-[50px] bg-[#007AFF] transition-all active:opacity-80 active:scale-[0.98] shadow-sm" style="letter-spacing: -0.408px;">
+          <i class="fas fa-paper-plane"></i>
           Buat Surat
         </button>
       </div>

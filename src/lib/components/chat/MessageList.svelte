@@ -24,8 +24,8 @@
     </div>
   {:else}
     <div class="flex justify-center my-4">
-      <span class="px-4 py-2 bg-black/20 text-white/70 text-xs font-medium rounded-full backdrop-blur-sm">
-        Hari ini
+      <span class="px-4 py-2 bg-white/15 text-white/80 text-xs font-medium rounded-full backdrop-blur-md shadow-sm" style="letter-spacing: 0.5px;">
+        HARI INI
       </span>
     </div>
     {#each $messages as message (message.id)}
@@ -35,8 +35,8 @@
         <div 
           class="max-w-[75%] px-4 py-2.5 rounded-[20px] shadow-[0_1px_3px_rgba(0,0,0,0.12)] break-words {
             isSent(message) 
-              ? 'bg-[#0A84FF] text-white rounded-br-[6px]' 
-              : 'bg-[#E5E5EA] text-black rounded-bl-[6px]'
+              ? 'bg-[#007AFF] text-white rounded-br-[6px] shadow-[0_1px_2px_rgba(0,122,255,0.3)]' 
+              : 'bg-[#E5E5EA] text-[#1C1C1E] rounded-bl-[6px]'
           }"
         >
           <div class="text-[17px] leading-normal break-words" style="letter-spacing: -0.408px;">

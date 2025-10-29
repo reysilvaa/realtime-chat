@@ -52,7 +52,7 @@
       </div>
       
       <!-- Hourly Forecast -->
-      <div class="bg-white/20 backdrop-blur-xl rounded-[20px] p-4 border border-white/30">
+      <div class="bg-white/15 backdrop-blur-[40px] rounded-[22px] p-4 border border-white/25 shadow-[0_4px_20px_rgba(0,0,0,0.15)]" style="backdrop-filter: saturate(180%) blur(40px); -webkit-backdrop-filter: saturate(180%) blur(40px);">
         <div class="text-white/80 text-sm font-semibold mb-3">HOURLY FORECAST</div>
         <div class="flex gap-4 overflow-x-auto pb-2">
           {#each weather.hourly as hour}
@@ -66,7 +66,7 @@
       </div>
       
       <!-- Weekly Forecast -->
-      <div class="bg-white/20 backdrop-blur-xl rounded-[20px] p-4 border border-white/30">
+      <div class="bg-white/15 backdrop-blur-[40px] rounded-[22px] p-4 border border-white/25 shadow-[0_4px_20px_rgba(0,0,0,0.15)]" style="backdrop-filter: saturate(180%) blur(40px); -webkit-backdrop-filter: saturate(180%) blur(40px);">
         <div class="text-white/80 text-sm font-semibold mb-3">7-DAY FORECAST</div>
         <div class="space-y-3">
           {#each weather.weekly as day}
@@ -84,11 +84,11 @@
       
       <!-- Details -->
       <div class="grid grid-cols-2 gap-4">
-        <div class="bg-white/20 backdrop-blur-xl rounded-[20px] p-4 border border-white/30">
+        <div class="bg-white/15 backdrop-blur-[40px] rounded-[20px] p-4 border border-white/25 shadow-[0_4px_20px_rgba(0,0,0,0.15)]" style="backdrop-filter: saturate(180%) blur(40px); -webkit-backdrop-filter: saturate(180%) blur(40px);">
           <div class="text-white/80 text-xs font-semibold mb-2">HUMIDITY</div>
           <div class="text-white text-3xl font-semibold">{weather.humidity}%</div>
         </div>
-        <div class="bg-white/20 backdrop-blur-xl rounded-[20px] p-4 border border-white/30">
+        <div class="bg-white/15 backdrop-blur-[40px] rounded-[20px] p-4 border border-white/25 shadow-[0_4px_20px_rgba(0,0,0,0.15)]" style="backdrop-filter: saturate(180%) blur(40px); -webkit-backdrop-filter: saturate(180%) blur(40px);">
           <div class="text-white/80 text-xs font-semibold mb-2">WIND</div>
           <div class="text-white text-3xl font-semibold">{weather.wind} km/h</div>
         </div>

@@ -63,13 +63,13 @@
   }
 </script>
 
-<div class="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-xl border-t border-white/10 z-50" style="backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);">
+<div class="fixed bottom-0 left-0 right-0 bg-white/10 backdrop-blur-[40px] border-t border-white/20 z-50 shadow-[0_-2px_10px_rgba(0,0,0,0.1)]" style="backdrop-filter: saturate(180%) blur(40px); -webkit-backdrop-filter: saturate(180%) blur(40px);">
   {#if showEmoticons}
-    <div class="max-h-[240px] overflow-y-auto border-b border-white/10 bg-black/50 animate-[slideUp_0.2s_ease-out]">
+    <div class="max-h-[240px] overflow-y-auto border-b border-white/20 bg-white/5 backdrop-blur-sm animate-[slideUp_0.2s_ease-out]">
       <div class="grid grid-cols-8 gap-2 p-4">
         {#each EMOTICONS as emoji}
           <span
-            class="text-3xl text-center cursor-pointer transition-transform hover:scale-125 active:scale-95 p-2 rounded-lg hover:bg-white/10"
+            class="text-3xl text-center cursor-pointer transition-transform hover:scale-125 active:scale-95 p-2 rounded-[10px] hover:bg-white/15"
             role="button"
             tabindex="0"
             onclick={() => insertEmoji(emoji)}
@@ -85,10 +85,10 @@
   <form class="flex items-end gap-3 p-4" onsubmit={handleSubmit}>
     <button
       type="button"
-      class="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full transition-all {
+      class="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full transition-all shadow-sm {
         showEmoticons 
-          ? 'bg-[#0A84FF] text-white' 
-          : 'text-[#0A84FF] hover:bg-white/10'
+          ? 'bg-[#007AFF] text-white' 
+          : 'text-[#007AFF] hover:bg-white/15 active:scale-95'
       }"
       onclick={toggleEmoticons}
       aria-label="Toggle emoticons"
@@ -104,16 +104,16 @@
       placeholder="Ketik pesan..."
       rows="1"
       maxlength="1000"
-      class="flex-1 bg-[#1C1C1E] text-white px-4 py-3 rounded-[20px] resize-none outline-none border border-white/10 placeholder:text-white/40 focus:border-[#0A84FF] transition-colors max-h-[120px] overflow-y-auto"
+      class="flex-1 bg-white/10 text-white px-4 py-3 rounded-[20px] resize-none outline-none border border-white/20 placeholder:text-white/50 focus:border-[#007AFF] focus:bg-white/15 transition-all max-h-[120px] overflow-y-auto backdrop-blur-sm"
       style="font-size: 17px; letter-spacing: -0.408px;"
     ></textarea>
 
     <button
       type="submit"
-      class="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full transition-all {
+      class="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full transition-all shadow-lg {
         message.trim() && !isSending
-          ? 'bg-[#0A84FF] text-white hover:opacity-80 active:scale-95'
-          : 'bg-white/10 text-white/30 cursor-not-allowed'
+          ? 'bg-[#007AFF] text-white hover:opacity-90 active:scale-[0.92]'
+          : 'bg-white/15 text-white/40 cursor-not-allowed'
       }"
       disabled={!message.trim() || isSending}
       aria-label="Send message"

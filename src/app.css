@@ -6,14 +6,14 @@
 @layer base {
   :root {
     /* iOS 17 System Colors - More vibrant */
-    --ios-blue: #0A84FF;
-    --ios-green: #30D158;
-    --ios-red: #FF453A;
-    --ios-orange: #FF9F0A;
-    --ios-yellow: #FFD60A;
-    --ios-purple: #BF5AF2;
-    --ios-pink: #FF375F;
-    --ios-teal: #64D2FF;
+    --ios-blue: #007AFF;
+    --ios-green: #34C759;
+    --ios-red: #FF3B30;
+    --ios-orange: #FF9500;
+    --ios-yellow: #FFCC00;
+    --ios-purple: #AF52DE;
+    --ios-pink: #FF2D55;
+    --ios-teal: #5AC8FA;
     
     /* Gray palette */
     --ios-gray: #8E8E93;
@@ -27,6 +27,55 @@
     --ios-spacing: 16px;
     --ios-spacing-lg: 24px;
     --ios-spacing-xl: 32px;
+  }
+  
+  /* Light Theme (Default) */
+  :root,
+  [data-theme="light"] {
+    --bg-primary: #F2F2F7;
+    --bg-secondary: #FFFFFF;
+    --bg-tertiary: #F2F2F7;
+    
+    --text-primary: #1C1C1E;
+    --text-secondary: #8E8E93;
+    --text-tertiary: #AEAEB2;
+    
+    --border-primary: #E5E5EA;
+    --border-secondary: #C7C7CC;
+    
+    --card-bg: #FFFFFF;
+    --card-border: #E5E5EA;
+    
+    --input-bg: #F2F2F7;
+    --input-border: transparent;
+    --input-focus-border: #007AFF;
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Dark Theme */
+  [data-theme="dark"] {
+    --bg-primary: #000000;
+    --bg-secondary: #1C1C1E;
+    --bg-tertiary: #2C2C2E;
+    
+    --text-primary: #FFFFFF;
+    --text-secondary: #8E8E93;
+    --text-tertiary: #636366;
+    
+    --border-primary: #38383A;
+    --border-secondary: #48484A;
+    
+    --card-bg: #1C1C1E;
+    --card-border: #38383A;
+    
+    --input-bg: #2C2C2E;
+    --input-border: transparent;
+    --input-focus-border: #0A84FF;
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
   }
   
   * {

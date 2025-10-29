@@ -47,15 +47,15 @@
   <title>Notes - ReyNisa App</title>
 </svelte:head>
 
-<div class="min-h-full h-full flex flex-col bg-black">
+<div class="min-h-full h-full flex flex-col bg-[var(--bg-primary)]">
   <Header title="Notes" backLink="/" />
   
-  <div class="flex-1 pt-[107px] pb-4 max-w-full mx-auto bg-black overflow-y-auto" style="-webkit-overflow-scrolling: touch;">
+  <div class="flex-1 pt-[107px] pb-4 max-w-full mx-auto overflow-y-auto" style="-webkit-overflow-scrolling: touch;">
     <div class="p-4 space-y-4 animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]">
       <!-- New Note Button -->
       <button 
         onclick={() => showNewNote = !showNewNote}
-        class="w-full py-3 bg-[#0A84FF] text-white rounded-[14px] font-semibold transition-all active:opacity-60 flex items-center justify-center gap-2"
+        class="w-full py-3 bg-[#007AFF] text-white rounded-[14px] font-semibold transition-all active:opacity-60 flex items-center justify-center gap-2"
       >
         <i class="fas fa-plus"></i>
         New Note
@@ -63,29 +63,29 @@
       
       <!-- New Note Form -->
       {#if showNewNote}
-        <div class="bg-white/10 backdrop-blur-xl rounded-[20px] p-5 border border-white/10">
+        <div class="bg-[var(--card-bg)] rounded-[12px] p-5 border border-[var(--border-primary)] shadow-[var(--shadow-sm)]">
           <input 
             type="text" 
             bind:value={newTitle}
             placeholder="Note Title..."
-            class="w-full px-4 py-3 mb-3 rounded-[12px] bg-black/30 border border-white/10 text-white placeholder:text-white/40 outline-none focus:border-[#0A84FF]"
+            class="w-full px-4 py-3 mb-3 rounded-[12px] bg-[var(--input-bg)] border border-[var(--input-border)] text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] outline-none focus:border-[var(--input-focus-border)]"
           />
           <textarea 
             bind:value={newContent}
             placeholder="Start typing..."
             rows="6"
-            class="w-full px-4 py-3 mb-3 rounded-[12px] bg-black/30 border border-white/10 text-white placeholder:text-white/40 outline-none focus:border-[#0A84FF] resize-none"
+            class="w-full px-4 py-3 mb-3 rounded-[12px] bg-[var(--input-bg)] border border-[var(--input-border)] text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] outline-none focus:border-[var(--input-focus-border)] resize-none"
           ></textarea>
           <div class="flex gap-2">
             <button 
               onclick={createNote}
-              class="flex-1 py-3 bg-[#30D158] text-white rounded-[14px] font-semibold transition-all active:opacity-60"
+              class="flex-1 py-3 bg-[#34C759] text-white rounded-[14px] font-semibold transition-all active:opacity-60"
             >
               Save
             </button>
             <button 
               onclick={() => { showNewNote = false; newTitle = ''; newContent = ''; }}
-              class="flex-1 py-3 bg-white/10 text-white rounded-[14px] font-semibold transition-all active:opacity-60"
+              class="flex-1 py-3 bg-[var(--bg-tertiary)] text-[var(--text-primary)] rounded-[14px] font-semibold transition-all active:opacity-60"
             >
               Cancel
             </button>
@@ -95,18 +95,18 @@
       
       <!-- Notes List -->
       {#each notes as note (note.id)}
-        <div class="bg-white/10 backdrop-blur-xl rounded-[20px] p-5 border border-white/10 transition-all hover:bg-white/15">
+        <div class="bg-[var(--card-bg)] rounded-[12px] p-5 border border-[var(--border-primary)] shadow-[var(--shadow-sm)] transition-all">
           <div class="flex justify-between items-start mb-3">
-            <h3 class="text-xl font-bold text-white">{note.title}</h3>
+            <h3 class="text-xl font-bold text-[var(--text-primary)]">{note.title}</h3>
             <button 
               onclick={() => deleteNote(note.id)}
-              class="text-red-400 hover:text-red-300 transition-colors"
+              class="text-[#FF3B30] transition-opacity active:opacity-60"
             >
               <i class="fas fa-trash"></i>
             </button>
           </div>
-          <p class="text-white/80 mb-2 whitespace-pre-wrap">{note.content}</p>
-          <div class="text-xs text-white/50">
+          <p class="text-[var(--text-primary)] mb-2 whitespace-pre-wrap opacity-90">{note.content}</p>
+          <div class="text-xs text-[var(--text-secondary)]">
             {note.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
           </div>
         </div>

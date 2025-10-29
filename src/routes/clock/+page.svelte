@@ -26,42 +26,42 @@
   <title>Clock - ReyNisa App</title>
 </svelte:head>
 
-<div class="min-h-full h-full flex flex-col bg-black">
+<div class="min-h-full h-full flex flex-col bg-[var(--bg-secondary)]">
   <Header title="Clock" backLink="/" />
   
-  <div class="flex-1 pt-[107px] pb-4 max-w-full mx-auto bg-black flex items-center justify-center" style="-webkit-overflow-scrolling: touch;">
+  <div class="flex-1 pt-[107px] pb-4 max-w-full mx-auto flex items-center justify-center" style="-webkit-overflow-scrolling: touch;">
     <div class="text-center p-8 animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]">
       <!-- Digital Clock -->
       <div class="mb-8">
-        <div class="text-8xl font-bold text-white mb-4 tracking-tighter" style="font-variant-numeric: tabular-nums;">
+        <div class="text-8xl font-bold text-[var(--text-primary)] mb-4 tracking-tighter" style="font-variant-numeric: tabular-nums;">
           {currentTime}
         </div>
-        <div class="text-2xl text-white/70 font-medium">
+        <div class="text-2xl text-[var(--text-secondary)] font-medium">
           {currentDate}
         </div>
       </div>
       
       <!-- Analog Clock Placeholder -->
-      <div class="w-64 h-64 mx-auto rounded-full bg-white/10 backdrop-blur-xl border-4 border-white/20 flex items-center justify-center relative shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
-        <div class="absolute w-1 h-24 bg-white/90 rounded-full origin-bottom" style="transform: rotate(0deg) translateY(-48px);"></div>
-        <div class="absolute w-1 h-20 bg-white/70 rounded-full origin-bottom" style="transform: rotate(90deg) translateY(-40px);"></div>
-        <div class="absolute w-0.5 h-28 bg-[#FF453A] rounded-full origin-bottom" style="transform: rotate(180deg) translateY(-56px);"></div>
-        <div class="w-4 h-4 bg-white rounded-full absolute z-10"></div>
+      <div class="w-64 h-64 mx-auto rounded-full bg-[var(--card-bg)] border-4 border-[var(--border-primary)] flex items-center justify-center relative shadow-[var(--shadow-md)]">
+        <div class="absolute w-1 h-24 bg-[var(--text-primary)] rounded-full origin-bottom" style="transform: rotate(0deg) translateY(-48px); opacity: 0.9;"></div>
+        <div class="absolute w-1 h-20 bg-[var(--text-primary)] rounded-full origin-bottom" style="transform: rotate(90deg) translateY(-40px); opacity: 0.7;"></div>
+        <div class="absolute w-0.5 h-28 bg-[#FF3B30] rounded-full origin-bottom" style="transform: rotate(180deg) translateY(-56px);"></div>
+        <div class="w-4 h-4 bg-[var(--text-primary)] rounded-full absolute z-10"></div>
       </div>
       
       <!-- Quick Actions -->
       <div class="grid grid-cols-3 gap-4 mt-8 max-w-md mx-auto">
-        <div class="bg-white/10 backdrop-blur-xl rounded-[16px] p-4 text-center border border-white/10">
-          <i class="fas fa-bell text-3xl text-[#FF9F0A] mb-2"></i>
-          <div class="text-white text-sm font-medium">Alarm</div>
+        <div class="bg-[var(--card-bg)] rounded-[16px] p-4 text-center border border-[var(--border-primary)] shadow-[var(--shadow-sm)]">
+          <i class="fas fa-bell text-3xl text-[#FF9500] mb-2"></i>
+          <div class="text-[var(--text-primary)] text-sm font-medium">Alarm</div>
         </div>
-        <div class="bg-white/10 backdrop-blur-xl rounded-[16px] p-4 text-center border border-white/10">
-          <i class="fas fa-stopwatch text-3xl text-[#0A84FF] mb-2"></i>
-          <div class="text-white text-sm font-medium">Stopwatch</div>
+        <div class="bg-[var(--card-bg)] rounded-[16px] p-4 text-center border border-[var(--border-primary)] shadow-[var(--shadow-sm)]">
+          <i class="fas fa-stopwatch text-3xl text-[#007AFF] mb-2"></i>
+          <div class="text-[var(--text-primary)] text-sm font-medium">Stopwatch</div>
         </div>
-        <div class="bg-white/10 backdrop-blur-xl rounded-[16px] p-4 text-center border border-white/10">
-          <i class="fas fa-hourglass text-3xl text-[#30D158] mb-2"></i>
-          <div class="text-white text-sm font-medium">Timer</div>
+        <div class="bg-[var(--card-bg)] rounded-[16px] p-4 text-center border border-[var(--border-primary)] shadow-[var(--shadow-sm)]">
+          <i class="fas fa-hourglass text-3xl text-[#34C759] mb-2"></i>
+          <div class="text-[var(--text-primary)] text-sm font-medium">Timer</div>
         </div>
       </div>
     </div>

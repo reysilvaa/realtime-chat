@@ -40,16 +40,16 @@
   <div 
     class="fixed top-[100px] right-4 w-[340px] max-w-[calc(100vw-32px)] z-[9999] animate-[slideDown_0.3s_ease-out]"
   >
-    <div class="bg-black/90 backdrop-blur-2xl rounded-[24px] p-4 shadow-2xl border border-white/10">
+    <div class="bg-white/15 backdrop-blur-[40px] rounded-[26px] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.4)] border border-white/20" style="backdrop-filter: saturate(180%) blur(40px); -webkit-backdrop-filter: saturate(180%) blur(40px);">
       <!-- Connectivity Cards -->
       <div class="grid grid-cols-2 gap-3 mb-3">
         <!-- Connectivity Group -->
-        <div class="col-span-2 bg-white/10 rounded-[18px] p-3">
+        <div class="col-span-2 bg-white/15 backdrop-blur-lg rounded-[20px] p-3 border border-white/10">
           <div class="grid grid-cols-3 gap-2">
             <!-- WiFi -->
             <button 
               onclick={toggleWifi}
-              class="aspect-square rounded-[14px] flex flex-col items-center justify-center transition-all active:scale-95 {wifiEnabled ? 'bg-[#0A84FF]' : 'bg-white/10'}"
+              class="aspect-square rounded-[16px] flex flex-col items-center justify-center transition-all active:scale-95 shadow-lg {wifiEnabled ? 'bg-[#0A84FF]' : 'bg-white/15'}"
             >
               <i class="fas fa-wifi text-2xl {wifiEnabled ? 'text-white' : 'text-white/40'} mb-1"></i>
               <span class="text-[10px] {wifiEnabled ? 'text-white' : 'text-white/40'}">Wi-Fi</span>
@@ -58,7 +58,7 @@
             <!-- Bluetooth -->
             <button 
               onclick={toggleBluetooth}
-              class="aspect-square rounded-[14px] flex flex-col items-center justify-center transition-all active:scale-95 {bluetoothEnabled ? 'bg-[#0A84FF]' : 'bg-white/10'}"
+              class="aspect-square rounded-[16px] flex flex-col items-center justify-center transition-all active:scale-95 shadow-lg {bluetoothEnabled ? 'bg-[#0A84FF]' : 'bg-white/15'}"
             >
               <i class="fab fa-bluetooth text-2xl {bluetoothEnabled ? 'text-white' : 'text-white/40'} mb-1"></i>
               <span class="text-[10px] {bluetoothEnabled ? 'text-white' : 'text-white/40'}">Bluetooth</span>
@@ -67,7 +67,7 @@
             <!-- Airplane Mode -->
             <button 
               onclick={toggleAirplane}
-              class="aspect-square rounded-[14px] flex flex-col items-center justify-center transition-all active:scale-95 {airplaneMode ? 'bg-[#FF9F0A]' : 'bg-white/10'}"
+              class="aspect-square rounded-[16px] flex flex-col items-center justify-center transition-all active:scale-95 shadow-lg {airplaneMode ? 'bg-[#FF9F0A]' : 'bg-white/15'}"
             >
               <i class="fas fa-plane text-2xl {airplaneMode ? 'text-white' : 'text-white/40'} mb-1"></i>
               <span class="text-[10px] {airplaneMode ? 'text-white' : 'text-white/40'}">Airplane</span>
@@ -77,7 +77,7 @@
       </div>
       
       <!-- Brightness -->
-      <div class="bg-white/10 backdrop-blur-xl rounded-[18px] p-4 mb-3">
+      <div class="bg-white/15 backdrop-blur-lg rounded-[20px] p-4 mb-3 border border-white/10">
         <div class="flex items-center gap-3 mb-2">
           <i class="fas fa-sun text-white/70"></i>
           <span class="text-white text-sm font-medium flex-1">Brightness</span>
@@ -93,7 +93,7 @@
       </div>
       
       <!-- Volume -->
-      <div class="bg-white/10 backdrop-blur-xl rounded-[18px] p-4 mb-3">
+      <div class="bg-white/15 backdrop-blur-lg rounded-[20px] p-4 mb-3 border border-white/10">
         <div class="flex items-center gap-3 mb-2">
           <i class="fas fa-volume-up text-white/70"></i>
           <span class="text-white text-sm font-medium flex-1">Volume</span>
@@ -113,29 +113,29 @@
         <!-- Flashlight -->
         <button 
           onclick={toggleFlashlight}
-          class="aspect-square rounded-[14px] flex flex-col items-center justify-center transition-all active:scale-95 {flashlightOn ? 'bg-white/90' : 'bg-white/10'}"
+          class="aspect-square rounded-[16px] flex flex-col items-center justify-center transition-all active:scale-95 shadow-lg {flashlightOn ? 'bg-white/90' : 'bg-white/15'}"
         >
           <i class="fas fa-flashlight text-2xl {flashlightOn ? 'text-black' : 'text-white'} mb-1"></i>
         </button>
         
         <!-- Calculator -->
-        <a href="/calculator" class="aspect-square rounded-[14px] flex flex-col items-center justify-center bg-[#FF9F0A] transition-all active:scale-95">
+        <a href="/calculator" class="aspect-square rounded-[16px] flex flex-col items-center justify-center bg-[#FF9F0A] transition-all active:scale-95 shadow-lg">
           <i class="fas fa-calculator text-2xl text-white mb-1"></i>
         </a>
         
         <!-- Camera -->
-        <button class="aspect-square rounded-[14px] flex flex-col items-center justify-center bg-white/10 transition-all active:scale-95">
+        <button class="aspect-square rounded-[16px] flex flex-col items-center justify-center bg-white/15 transition-all active:scale-95 shadow-lg">
           <i class="fas fa-camera text-2xl text-white mb-1"></i>
         </button>
         
         <!-- Settings -->
-        <a href="/settings" class="aspect-square rounded-[14px] flex flex-col items-center justify-center bg-white/10 transition-all active:scale-95">
+        <a href="/settings" class="aspect-square rounded-[16px] flex flex-col items-center justify-center bg-white/15 transition-all active:scale-95 shadow-lg">
           <i class="fas fa-cog text-2xl text-white mb-1"></i>
         </a>
       </div>
       
       <!-- Music Player (Optional) -->
-      <div class="bg-white/10 backdrop-blur-xl rounded-[18px] p-4 mt-3">
+      <div class="bg-white/15 backdrop-blur-lg rounded-[20px] p-4 mt-3 border border-white/10">
         <div class="flex items-center gap-3 mb-3">
           <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-[10px] flex items-center justify-center">
             <i class="fas fa-music text-white text-xl"></i>

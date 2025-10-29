@@ -33,11 +33,14 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    background: rgba(255, 59, 48, 0.9);
+    backdrop-filter: saturate(180%) blur(30px);
+    -webkit-backdrop-filter: saturate(180%) blur(30px);
     color: white;
     padding: 12px 16px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(255, 59, 48, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     z-index: 9999;
     font-size: 13px;
     display: flex;
@@ -47,8 +50,8 @@
   }
   
   @keyframes devPulse {
-    0%, 100% { box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4); }
-    50% { box-shadow: 0 4px 20px rgba(255, 107, 107, 0.6); }
+    0%, 100% { box-shadow: 0 8px 24px rgba(255, 59, 48, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2); }
+    50% { box-shadow: 0 8px 32px rgba(255, 59, 48, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2); }
   }
   
   .dev-selector-content {
@@ -61,21 +64,29 @@
     font-weight: 700;
     font-size: 11px;
     letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
   
   .dev-select {
-    background: white;
-    color: #333;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1d1d1f;
     border: none;
     padding: 6px 12px;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
   }
   
   .dev-select:hover {
-    background: #f8f9fa;
+    background: white;
+    transform: scale(1.02);
+  }
+  
+  .dev-select:active {
+    transform: scale(0.98);
   }
 </style>

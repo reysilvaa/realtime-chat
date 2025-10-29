@@ -92,18 +92,18 @@
   <title>Calculator - ReyNisa App</title>
 </svelte:head>
 
-<div class="min-h-full h-full flex flex-col bg-black">
+<div class="min-h-full h-full flex flex-col bg-[var(--bg-secondary)]">
   <Header title="Calculator" backLink="/" />
   
-  <div class="flex-1 pt-[91px] pb-6 px-6 bg-black flex flex-col justify-end animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]">
+  <div class="flex-1 pt-[91px] pb-6 px-6 flex flex-col justify-end animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]">
     <!-- Display Area -->
     <div class="mb-6 text-right px-2">
       {#if formula}
-        <div class="text-white/50 text-3xl mb-2 font-light" style="font-variant-numeric: tabular-nums;">
+        <div class="text-[var(--text-secondary)] text-3xl mb-2 font-light" style="font-variant-numeric: tabular-nums;">
           {formula}
         </div>
       {/if}
-      <div class="text-white text-7xl font-light overflow-x-auto scrollbar-hide" style="font-variant-numeric: tabular-nums;">
+      <div class="text-[var(--text-primary)] text-7xl font-light overflow-x-auto scrollbar-hide" style="font-variant-numeric: tabular-nums;">
         {display}
       </div>
     </div>

@@ -23,12 +23,12 @@
   <title>Photos - ReyNisa App</title>
 </svelte:head>
 
-<div class="min-h-full h-full flex flex-col bg-black">
+<div class="min-h-full h-full flex flex-col bg-[var(--bg-primary)]">
   <Header title="Photos" backLink="/" />
   
-  <div class="flex-1 pt-[107px] pb-4 max-w-full mx-auto bg-black overflow-y-auto" style="-webkit-overflow-scrolling: touch;">
+  <div class="flex-1 pt-[107px] pb-4 max-w-full mx-auto overflow-y-auto" style="-webkit-overflow-scrolling: touch;">
     <div class="p-4 animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]">
-      <h2 class="text-2xl font-bold text-white mb-4">All Photos</h2>
+      <h2 class="text-2xl font-bold text-[var(--text-primary)] mb-4">All Photos</h2>
       
       <!-- Photo Grid -->
       <div class="grid grid-cols-3 gap-1">
@@ -46,21 +46,21 @@
       
       <!-- Albums -->
       <div class="mt-8">
-        <h3 class="text-xl font-bold text-white mb-4">Albums</h3>
+        <h3 class="text-xl font-bold text-[var(--text-primary)] mb-4">Albums</h3>
         <div class="grid grid-cols-2 gap-4">
-          <div class="bg-white/10 backdrop-blur-xl rounded-[16px] p-4 border border-white/10">
+          <div class="bg-[var(--card-bg)] rounded-[12px] p-4 border border-[var(--border-primary)] shadow-[var(--shadow-sm)]">
             <div class="aspect-square bg-gradient-to-br from-blue-500 to-purple-600 rounded-[12px] mb-3 flex items-center justify-center">
               <i class="fas fa-heart text-white text-4xl"></i>
             </div>
-            <div class="text-white font-semibold">Favorites</div>
-            <div class="text-white/60 text-sm">0 items</div>
+            <div class="text-[var(--text-primary)] font-semibold">Favorites</div>
+            <div class="text-[var(--text-secondary)] text-sm">0 items</div>
           </div>
-          <div class="bg-white/10 backdrop-blur-xl rounded-[16px] p-4 border border-white/10">
+          <div class="bg-[var(--card-bg)] rounded-[12px] p-4 border border-[var(--border-primary)] shadow-[var(--shadow-sm)]">
             <div class="aspect-square bg-gradient-to-br from-green-500 to-teal-600 rounded-[12px] mb-3 flex items-center justify-center">
               <i class="fas fa-images text-white text-4xl"></i>
             </div>
-            <div class="text-white font-semibold">Recent</div>
-            <div class="text-white/60 text-sm">{photos.length} items</div>
+            <div class="text-[var(--text-primary)] font-semibold">Recent</div>
+            <div class="text-[var(--text-secondary)] text-sm">{photos.length} items</div>
           </div>
         </div>
       </div>

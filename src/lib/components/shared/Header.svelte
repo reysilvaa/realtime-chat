@@ -13,31 +13,31 @@
 </script>
 
 <!-- Combined blur background for StatusBar + Header -->
-<div class="fixed top-0 left-0 right-0 h-[91px] z-[1000] bg-black/92 backdrop-blur-[25px] border-b border-white/[0.08]" style="backdrop-filter: saturate(180%) blur(25px); -webkit-backdrop-filter: saturate(180%) blur(25px);"></div>
+<div class="fixed top-0 left-0 right-0 h-[91px] z-[1000] bg-[var(--card-bg)] border-b border-[var(--border-primary)] shadow-[var(--shadow-sm)] opacity-95" style="backdrop-filter: saturate(180%) blur(30px); -webkit-backdrop-filter: saturate(180%) blur(30px);"></div>
 
 <!-- Header content -->
 <div class="fixed top-[47px] left-0 right-0 z-[1001] px-4 h-11 flex items-center">
   <div class="flex items-center gap-3 w-full">
     {#if backLink}
-      <a href={backLink} class="flex items-center gap-1.5 px-2 py-2 -ml-2 rounded-lg transition-all no-underline text-[#0A84FF] active:opacity-60 active:bg-[#0A84FF]/15">
+      <a href={backLink} class="flex items-center gap-1.5 px-2 py-2 -ml-2 rounded-lg transition-all no-underline text-[#007AFF] active:opacity-60 active:bg-white/20">
         <i class="fas fa-arrow-left"></i>
       </a>
     {:else}
-      <i class="fas fa-heart text-[#0A84FF]"></i>
+      <i class="fas fa-heart text-[#FF3B30]"></i>
     {/if}
     
     <div class="flex-1 text-center flex flex-col items-center">
-      <h1 class="text-[17px] font-semibold text-white m-0" style="letter-spacing: -0.408px;">{title}</h1>
+      <h1 class="text-[17px] font-semibold text-[var(--text-primary)] m-0" style="letter-spacing: -0.408px;">{title}</h1>
       {#if showStatus}
-        <span class="flex items-center gap-1.5 text-xs text-white/60 mt-0.5">
-          <span class="w-2 h-2 rounded-full {status === 'connected' ? 'bg-[#30D158]' : 'bg-white/30'} {status === 'connected' ? 'animate-pulse' : ''}"></span>
+        <span class="flex items-center gap-1.5 text-xs text-[var(--text-secondary)] mt-0.5">
+          <span class="w-2 h-2 rounded-full {status === 'connected' ? 'bg-[#34C759]' : 'bg-white/40'} {status === 'connected' ? 'animate-pulse' : ''}"></span>
           <span>{status === 'connected' ? 'Online' : status === 'connecting' ? 'Connecting...' : 'Offline'}</span>
         </span>
       {/if}
     </div>
     
     {#if user && !backLink}
-      <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white text-sm">
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--card-bg)] text-[var(--text-primary)] text-sm backdrop-blur-sm opacity-80">
         <i class="fas fa-user-circle"></i>
         <span>{user.userName}</span>
       </div>

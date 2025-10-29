@@ -63,7 +63,7 @@
   <title>Chat - ReyNisa App</title>
 </svelte:head>
 
-<div class="min-h-full h-full flex flex-col bg-[#F2F2F7]">
+<div class="min-h-full h-full flex flex-col bg-[var(--bg-primary)]">
   <Header 
     title={recipientName} 
     backLink="/" 
@@ -72,7 +72,7 @@
   />
   
   <div 
-    class="flex-1 overflow-y-auto px-4 bg-black animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]"
+    class="flex-1 overflow-y-auto px-4 animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]"
     style="padding-top: calc(91px + 16px); padding-bottom: calc(80px + 16px); -webkit-overflow-scrolling: touch;"
     bind:this={messagesContainer}
   >

@@ -3,12 +3,18 @@
   import type { Snippet } from 'svelte';
   import IPhoneFrame from '$lib/components/shared/iPhoneFrame.svelte';
   import Notification from '$lib/components/shared/Notification.svelte';
+  import { theme } from '$lib/stores/theme';
   
   let { children }: { children: Snippet } = $props();
   
   import '../app.css';
   
   let isHomePage = $derived($page.url.pathname === '/');
+  
+  // Initialize theme on mount
+  $effect(() => {
+    theme.init();
+  });
 </script>
 
 <svelte:head>
