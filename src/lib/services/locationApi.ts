@@ -1,4 +1,4 @@
-import { WEATHER_API } from '$lib/config';
+import { GEOCODING_API } from '$lib/config';
 import { browser } from '$app/environment';
 
 export interface Coordinates {
@@ -67,7 +67,7 @@ export async function getLocationName(coords: Coordinates): Promise<string> {
   
   try {
     const response = await fetch(
-      `${WEATHER_API.geocodingUrl}?latitude=${coords.latitude}&longitude=${coords.longitude}&localityLanguage=en`
+      `${GEOCODING_API.reverseGeocodeUrl}?latitude=${coords.latitude}&longitude=${coords.longitude}&localityLanguage=en`
     );
     
     if (!response.ok) {

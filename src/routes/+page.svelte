@@ -375,7 +375,7 @@
           </a>
 
           <!-- Maps -->
-          <div class={appIconClass}>
+          <a href="/maps" class={appIconClass}>
             <div
               class={appIconImageClass}
               style="background: linear-gradient(135deg, #4CD964 0%, #5AC8FA 100%);"
@@ -390,7 +390,7 @@
               style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);"
               >Maps</span
             >
-          </div>
+          </a>
 
           <!-- Weather -->
           <a href="/weather" class={appIconClass}>

@@ -19,8 +19,11 @@ export const EMOTICONS = [
 
 export const WEATHER_API = {
   baseUrl: 'https://api.open-meteo.com/v1',
-  geocodingUrl: 'https://api.bigdatacloud.net/data/reverse-geocode-client',
   cacheDuration: 15 * 1000 // 15 seconds
+} as const;
+
+export const GEOCODING_API = {
+  reverseGeocodeUrl: 'https://api.bigdatacloud.net/data/reverse-geocode-client'
 } as const;
 
 export const EMOJI_API = {
@@ -29,8 +32,16 @@ export const EMOJI_API = {
   accessKey: '55e184678795c32ffcd44efdbea49a4949f6ac95'
 } as const;
 
+export const MAPS_API = {
+  tileUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  searchUrl: 'https://photon.komoot.io/api',
+  defaultZoom: 15,
+  maxZoom: 19
+} as const;
+
 export const CACHE_DURATIONS = {
   weather: 15 * 1000, // 15 seconds
   messages: 15 * 1000, // 15 seconds
-  location: 15 * 1000 // 15 seconds
+  location: 15 * 1000, // 15 seconds
 } as const;
