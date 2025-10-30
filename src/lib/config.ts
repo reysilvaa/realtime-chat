@@ -40,8 +40,14 @@ export const MAPS_API = {
   maxZoom: 19
 } as const;
 
+export const MUSIC_API = {
+  // Radio Browser API - free and open source
+  radioBrowserUrl: 'https://de1.api.radio-browser.info/json'
+} as const;
+
 export const CACHE_DURATIONS = {
   weather: 15 * 1000, // 15 seconds
   messages: 15 * 1000, // 15 seconds
   location: 15 * 1000, // 15 seconds
+  music: 5 * 60 * 1000, // 5 minutes
 } as const;

@@ -602,7 +602,7 @@
       </div>
     </a>
 
-    <div class={appIconClass}>
+    <a href="/music" class={appIconClass}>
       <div
         class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
         style="background: linear-gradient(135deg, #FF375F 0%, #FF2D55 100%);"
@@ -612,7 +612,7 @@
           style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"
         ></i>
       </div>
-    </div>
+    </a>
 
     <a href="/photos" class={appIconClass}>
       <div
