@@ -23,6 +23,12 @@ export const WEATHER_API = {
   cacheDuration: 15 * 1000 // 15 seconds
 } as const;
 
+export const EMOJI_API = {
+  baseUrl: 'https://emoji-api.com/emojis',
+  categoriesUrl: 'https://emoji-api.com/categories',
+  accessKey: '55e184678795c32ffcd44efdbea49a4949f6ac95'
+} as const;
+
 export const CACHE_DURATIONS = {
   weather: 15 * 1000, // 15 seconds
   messages: 15 * 1000, // 15 seconds
