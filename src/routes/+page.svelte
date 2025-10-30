@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { detectUser } from "$lib/utils/userDetection";
   import type { User } from "$lib/types";
   import { stats, loadStats } from "$lib/stores/stats";
   import { logDevInfo } from "$lib/utils/devTools";
   import DevSelector from "$lib/components/shared/DevSelector.svelte";
   import ControlCenter from "$lib/components/shared/ControlCenter.svelte";
+  import { weather } from '$lib/stores/weather';
 
   let user = $state<User | null>(detectUser());
   let statsData = $stats;
@@ -41,6 +43,10 @@
     if (!user) return;
     logDevInfo(user);
     loadStats(user.userName);
+  });
+
+  onMount(() => {
+    weather.loadWeather();
   });
 
   function handleTouchStart(e: TouchEvent) {
@@ -150,19 +156,30 @@
   <!-- Widgets Grid -->
   <div class="mb-5 grid grid-cols-2 gap-3 relative z-10">
     <!-- Weather Widget -->
-    <div
-      class="p-4 rounded-[22px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
-      style="backdrop-filter: saturate(180%) blur(30px);"
-    >
-      <div class="text-white/90 text-[13px] font-medium mb-0.5">
-        San Francisco
+    <a href="/weather" class="block no-underline">
+      <div
+        class="p-4 rounded-[22px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all active:scale-95"
+        style="backdrop-filter: saturate(180%) blur(30px);"
+      >
+        {#if $weather.loading}
+          <div class="text-white/90 text-[13px] font-medium mb-0.5">Loading...</div>
+          <div class="text-white text-[42px] font-light leading-none mb-2">--°</div>
+        {:else if $weather.error}
+          <div class="text-white/90 text-[13px] font-medium mb-0.5">No Location</div>
+          <div class="text-white text-[42px] font-light leading-none mb-2">--°</div>
+          <div class="text-white/80 text-[11px]">Tap to enable</div>
+        {:else if $weather.data}
+          <div class="text-white/90 text-[13px] font-medium mb-0.5">
+            {$weather.data.location}
+          </div>
+          <div class="text-white text-[42px] font-light leading-none mb-2">{$weather.data.temperature}°</div>
+          <div class="text-white/80 text-[13px] font-medium mb-1">
+            {$weather.data.condition}
+          </div>
+          <div class="text-white/70 text-[11px]">H:{$weather.data.high}° L:{$weather.data.low}°</div>
+        {/if}
       </div>
-      <div class="text-white text-[42px] font-light leading-none mb-2">53°</div>
-      <div class="text-white/80 text-[13px] font-medium mb-1">
-        Partly Cloudy
-      </div>
-      <div class="text-white/70 text-[11px]">H:56° L:50°</div>
-    </div>
+    </a>
 
     <!-- Calendar Widget -->
     <div
@@ -191,22 +208,48 @@
     </div>
   </div>
 
-  <!-- Contact Widget -->
+  <!-- Location Widget -->
   <div
     class="mb-5 p-4 rounded-[22px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)] relative z-10 flex items-center gap-3"
     style="backdrop-filter: saturate(180%) blur(30px);"
   >
-    <div
-      class="w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-xl font-semibold shadow-lg"
-    >
-      MG
-    </div>
-    <div class="flex-1">
-      <div class="text-white text-[15px] font-semibold mb-0.5">
-        Marina Green
+    {#if $weather.loading}
+      <div
+        class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xl font-semibold shadow-lg animate-pulse"
+      >
+        <i class="fas fa-spinner fa-spin text-sm"></i>
       </div>
-      <div class="text-white/80 text-[13px]">San Francisco, CA</div>
-    </div>
+      <div class="flex-1">
+        <div class="text-white text-[15px] font-semibold mb-0.5">Getting location...</div>
+        <div class="text-white/80 text-[13px]">Please wait</div>
+      </div>
+    {:else if $weather.data}
+      {@const locationParts = $weather.data.location.split(', ')}
+      {@const initials = locationParts.map(part => part.charAt(0).toUpperCase()).join('')}
+      <div
+        class="w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-xl font-semibold shadow-lg"
+      >
+        {initials.substring(0, 2)}
+      </div>
+      <div class="flex-1">
+        <div class="text-white text-[15px] font-semibold mb-0.5">
+          {locationParts[0] || 'Current Location'}
+        </div>
+        <div class="text-white/80 text-[13px]">
+          {locationParts.slice(1).join(', ') || 'Unknown'}
+        </div>
+      </div>
+    {:else}
+      <div
+        class="w-14 h-14 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center text-white text-xl font-semibold shadow-lg"
+      >
+        <i class="fas fa-map-marker-alt text-sm"></i>
+      </div>
+      <div class="flex-1">
+        <div class="text-white text-[15px] font-semibold mb-0.5">Location unavailable</div>
+        <div class="text-white/80 text-[13px]">Enable location services</div>
+      </div>
+    {/if}
     <div
       class="text-white/70 text-[13px] font-medium px-3 py-1.5 rounded-full bg-white/20"
     >
@@ -287,9 +330,9 @@
           </a>
 
           <!-- Camera -->
-          <div class={appIconClass}>
+          <a href="/camera" class={appIconClass}>
             <div
-              class="{appIconImageClass} bg-[linear-gradient(135deg,#98989D_0%,#636366_100%)]"
+              class="{appIconImageClass} bg-[linear-gradient(135deg,#8E8E93_0%,#636366_100%)]"
             >
               <i
                 class="fas fa-camera text-white"
@@ -301,7 +344,7 @@
               style="letter-spacing: -0.1px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);"
               >Camera</span
             >
-          </div>
+          </a>
 
           <!-- Mail -->
           <div class={appIconClass}>

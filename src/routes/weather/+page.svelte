@@ -1,98 +1,102 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { detectUser } from '$lib/utils/userDetection';
   import Header from '$lib/components/shared/Header.svelte';
   import DevSelector from '$lib/components/shared/DevSelector.svelte';
+  import { weather } from '$lib/stores/weather';
+  import { theme } from '$lib/stores/theme';
   
   detectUser();
   
-  // Mock weather data
-  const weather = {
-    location: 'Jakarta, Indonesia',
-    temperature: 28,
-    condition: 'Partly Cloudy',
-    icon: 'fa-cloud-sun',
-    high: 32,
-    low: 25,
-    humidity: 75,
-    wind: 12,
-    hourly: [
-      { time: '12:00', temp: 28, icon: 'fa-cloud-sun' },
-      { time: '13:00', temp: 29, icon: 'fa-sun' },
-      { time: '14:00', temp: 31, icon: 'fa-sun' },
-      { time: '15:00', temp: 32, icon: 'fa-sun' },
-      { time: '16:00', temp: 30, icon: 'fa-cloud-sun' },
-      { time: '17:00', temp: 28, icon: 'fa-cloud' }
-    ],
-    weekly: [
-      { day: 'Mon', high: 32, low: 25, icon: 'fa-sun' },
-      { day: 'Tue', high: 31, low: 24, icon: 'fa-cloud-sun' },
-      { day: 'Wed', high: 29, low: 23, icon: 'fa-cloud-rain' },
-      { day: 'Thu', high: 30, low: 24, icon: 'fa-cloud-sun' },
-      { day: 'Fri', high: 32, low: 25, icon: 'fa-sun' }
-    ]
-  };
+  $effect(() => {
+    theme.init();
+  });
+  
+  onMount(() => {
+    weather.loadWeather();
+  });
 </script>
 
 <svelte:head>
   <title>Weather - ReyNisa App</title>
 </svelte:head>
 
-<div class="min-h-full h-full flex flex-col bg-[radial-gradient(circle_at_top,#5AC8FA_0%,#007AFF_100%)]">
+<div class="min-h-full h-full flex flex-col bg-[var(--bg-primary)]">
   <Header title="Weather" backLink="/" />
   
-  <div class="flex-1 pt-[107px] pb-4 max-w-full mx-auto overflow-y-auto" style="-webkit-overflow-scrolling: touch;">
-    <div class="p-6 space-y-6 animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]">
-      <!-- Current Weather -->
-      <div class="text-center text-white">
-        <div class="text-2xl font-medium mb-2">{weather.location}</div>
-        <div class="text-8xl font-light mb-4">{weather.temperature}°</div>
-        <div class="text-3xl mb-2">{weather.condition}</div>
-        <div class="text-xl">H:{weather.high}° L:{weather.low}°</div>
-        <i class="fas {weather.icon} text-7xl my-6 opacity-90"></i>
-      </div>
-      
-      <!-- Hourly Forecast -->
-      <div class="bg-white/15 backdrop-blur-[40px] rounded-[22px] p-4 border border-white/25 shadow-[0_4px_20px_rgba(0,0,0,0.15)]" style="backdrop-filter: saturate(180%) blur(40px); -webkit-backdrop-filter: saturate(180%) blur(40px);">
-        <div class="text-white/80 text-sm font-semibold mb-3">HOURLY FORECAST</div>
-        <div class="flex gap-4 overflow-x-auto pb-2">
-          {#each weather.hourly as hour}
-            <div class="flex flex-col items-center min-w-[60px] text-white">
-              <div class="text-sm mb-2">{hour.time}</div>
-              <i class="fas {hour.icon} text-2xl mb-2"></i>
-              <div class="font-semibold">{hour.temp}°</div>
-            </div>
-          {/each}
+  <div class="flex-1 p-4 pt-[107px] max-w-full mx-auto overflow-y-auto" style="-webkit-overflow-scrolling: touch;">
+    <div class="max-w-3xl mx-auto space-y-4 animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]">
+      {#if $weather.loading}
+        <!-- Loading State -->
+        <div class="text-center text-[var(--text-primary)] py-20">
+          <i class="fas fa-spinner fa-spin text-6xl mb-4 opacity-60"></i>
+          <div class="text-xl">Loading weather data...</div>
         </div>
-      </div>
+      {:else if $weather.error}
+        <!-- Error State -->
+        <div class="text-center text-[var(--text-primary)] py-20">
+          <i class="fas fa-exclamation-triangle text-6xl mb-4 opacity-60 text-red-500"></i>
+          <div class="text-xl mb-4">{$weather.error}</div>
+          <button 
+            onclick={() => weather.refresh()}
+            class="bg-[#007AFF] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#0051D5] transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      {:else if $weather.data}
+        <!-- Current Weather -->
+        <div class="text-center text-[var(--text-primary)] bg-[var(--card-bg)] rounded-[12px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] p-6">
+          <div class="text-lg font-medium mb-1 text-[var(--text-secondary)]">{$weather.data.location}</div>
+          <div class="text-7xl font-light mb-2">{$weather.data.temperature}°</div>
+          <div class="text-2xl mb-2">{$weather.data.condition}</div>
+          <div class="text-base text-[var(--text-secondary)]">H:{$weather.data.high}° L:{$weather.data.low}°</div>
+          <i class="fas {$weather.data.icon} text-6xl my-4 text-[#007AFF]"></i>
+        </div>
       
-      <!-- Weekly Forecast -->
-      <div class="bg-white/15 backdrop-blur-[40px] rounded-[22px] p-4 border border-white/25 shadow-[0_4px_20px_rgba(0,0,0,0.15)]" style="backdrop-filter: saturate(180%) blur(40px); -webkit-backdrop-filter: saturate(180%) blur(40px);">
-        <div class="text-white/80 text-sm font-semibold mb-3">7-DAY FORECAST</div>
-        <div class="space-y-3">
-          {#each weather.weekly as day}
-            <div class="flex items-center justify-between text-white">
-              <div class="w-12 font-semibold">{day.day}</div>
-              <i class="fas {day.icon} text-xl w-8 text-center"></i>
-              <div class="flex gap-3 w-20 justify-end">
-                <span class="font-semibold">{day.high}°</span>
-                <span class="opacity-60">{day.low}°</span>
+        <!-- Hourly Forecast -->
+        <div class="bg-[var(--card-bg)] rounded-[12px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] p-4">
+          <div class="text-[var(--text-secondary)] text-xs font-semibold mb-3 uppercase tracking-wide">Hourly Forecast</div>
+          <div class="flex gap-4 overflow-x-auto pb-2">
+            {#each $weather.data.hourly as hour}
+              <div class="flex flex-col items-center min-w-[60px] text-[var(--text-primary)]">
+                <div class="text-sm mb-2 text-[var(--text-secondary)]">{hour.time}</div>
+                <i class="fas {hour.icon} text-2xl mb-2 text-[#007AFF]"></i>
+                <div class="font-semibold">{hour.temp}°</div>
               </div>
-            </div>
-          {/each}
+            {/each}
+          </div>
         </div>
-      </div>
-      
-      <!-- Details -->
-      <div class="grid grid-cols-2 gap-4">
-        <div class="bg-white/15 backdrop-blur-[40px] rounded-[20px] p-4 border border-white/25 shadow-[0_4px_20px_rgba(0,0,0,0.15)]" style="backdrop-filter: saturate(180%) blur(40px); -webkit-backdrop-filter: saturate(180%) blur(40px);">
-          <div class="text-white/80 text-xs font-semibold mb-2">HUMIDITY</div>
-          <div class="text-white text-3xl font-semibold">{weather.humidity}%</div>
+        
+        <!-- Daily Forecast -->
+        <div class="bg-[var(--card-bg)] rounded-[12px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] p-4">
+          <div class="text-[var(--text-secondary)] text-xs font-semibold mb-3 uppercase tracking-wide">5-Day Forecast</div>
+          <div class="space-y-3">
+            {#each $weather.data.daily as day}
+              <div class="flex items-center justify-between text-[var(--text-primary)]">
+                <div class="w-16 font-semibold">{day.day}</div>
+                <i class="fas {day.icon} text-xl w-8 text-center text-[#007AFF]"></i>
+                <div class="flex gap-3 w-20 justify-end">
+                  <span class="font-semibold">{day.high}°</span>
+                  <span class="text-[var(--text-secondary)]">{day.low}°</span>
+                </div>
+              </div>
+            {/each}
+          </div>
         </div>
-        <div class="bg-white/15 backdrop-blur-[40px] rounded-[20px] p-4 border border-white/25 shadow-[0_4px_20px_rgba(0,0,0,0.15)]" style="backdrop-filter: saturate(180%) blur(40px); -webkit-backdrop-filter: saturate(180%) blur(40px);">
-          <div class="text-white/80 text-xs font-semibold mb-2">WIND</div>
-          <div class="text-white text-3xl font-semibold">{weather.wind} km/h</div>
+        
+        <!-- Details -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-[var(--card-bg)] rounded-[12px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] p-4">
+            <div class="text-[var(--text-secondary)] text-xs font-semibold mb-2 uppercase tracking-wide">Humidity</div>
+            <div class="text-[var(--text-primary)] text-3xl font-semibold">{$weather.data.humidity}%</div>
+          </div>
+          <div class="bg-[var(--card-bg)] rounded-[12px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] p-4">
+            <div class="text-[var(--text-secondary)] text-xs font-semibold mb-2 uppercase tracking-wide">Wind</div>
+            <div class="text-[var(--text-primary)] text-3xl font-semibold">{$weather.data.windSpeed} km/h</div>
+          </div>
         </div>
-      </div>
+      {/if}
     </div>
   </div>
   

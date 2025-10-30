@@ -1,7 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
   import { detectUser } from '$lib/utils/userDetection';
   import DevSelector from '$lib/components/shared/DevSelector.svelte';
+  import { photos } from '$lib/stores/photos';
   
   detectUser();
   
@@ -17,6 +19,15 @@
   let flashMode = $state<'auto' | 'on' | 'off'>('auto');
   let zoom = $state(1);
   let showControls = $state(false);
+  let lastPhoto = $state<string | null>(null);
+  
+  // Subscribe to photos store to get latest photo
+  $effect(() => {
+    const allPhotos = $photos;
+    if (allPhotos.length > 0) {
+      lastPhoto = allPhotos[0].dataUrl;
+    }
+  });
   
   async function startCamera() {
     try {
@@ -60,7 +71,14 @@
     const context = canvasElement.getContext('2d');
     if (context) {
       context.drawImage(videoElement, 0, 0);
-      capturedImage = canvasElement.toDataURL('image/jpeg', 0.9);
+      const photoDataUrl = canvasElement.toDataURL('image/jpeg', 0.9);
+      
+      // Save to photos store
+      photos.addPhoto(photoDataUrl);
+      
+      // Show captured image
+      capturedImage = photoDataUrl;
+      lastPhoto = photoDataUrl;
     }
     
     setTimeout(() => {
@@ -79,6 +97,10 @@
     link.href = capturedImage;
     link.download = `photo-${Date.now()}.jpg`;
     link.click();
+  }
+  
+  function viewInGallery() {
+    goto('/photos');
   }
   
   async function switchCamera() {
@@ -141,17 +163,24 @@
         
         <!-- Photo Actions -->
         <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-          <div class="flex justify-center gap-4">
+          <div class="flex justify-center gap-3">
             <button 
               onclick={retakePhoto}
-              class="flex-1 max-w-[140px] py-3 bg-[var(--card-bg)] text-[var(--text-primary)] rounded-[12px] font-semibold transition-all active:opacity-60 flex items-center justify-center gap-2"
+              class="flex-1 max-w-[120px] py-3 bg-white/20 backdrop-blur-md text-white rounded-[12px] font-semibold transition-all active:opacity-60 flex items-center justify-center gap-2 text-sm"
             >
               <i class="fas fa-redo"></i>
               Retake
             </button>
             <button 
+              onclick={viewInGallery}
+              class="flex-1 max-w-[120px] py-3 bg-[#007AFF] text-white rounded-[12px] font-semibold transition-all active:opacity-60 flex items-center justify-center gap-2 text-sm"
+            >
+              <i class="fas fa-images"></i>
+              Gallery
+            </button>
+            <button 
               onclick={downloadPhoto}
-              class="flex-1 max-w-[140px] py-3 bg-[#007AFF] text-white rounded-[12px] font-semibold transition-all active:opacity-60 flex items-center justify-center gap-2"
+              class="flex-1 max-w-[120px] py-3 bg-[#34C759] text-white rounded-[12px] font-semibold transition-all active:opacity-60 flex items-center justify-center gap-2 text-sm"
             >
               <i class="fas fa-download"></i>
               Save
@@ -202,9 +231,15 @@
           
           <!-- Bottom Left - Gallery Thumbnail -->
           <div class="absolute bottom-[140px] left-8 pointer-events-auto z-10">
-            <button class="w-10 h-10 bg-white/20 rounded-[8px] flex items-center justify-center border border-white/30 backdrop-blur-sm overflow-hidden">
-              <i class="fas fa-images text-white text-sm"></i>
-            </button>
+            <a href="/photos" class="block w-10 h-10 rounded-[8px] border border-white/30 backdrop-blur-sm overflow-hidden">
+              {#if lastPhoto}
+                <img src={lastPhoto} alt="Last photo" class="w-full h-full object-cover" />
+              {:else}
+                <div class="w-full h-full bg-white/20 flex items-center justify-center">
+                  <i class="fas fa-images text-white text-sm"></i>
+                </div>
+              {/if}
+            </a>
           </div>
           
           <!-- Center - Horizontal Zoom Controls (Above Capture Button) -->

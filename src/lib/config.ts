@@ -16,3 +16,8 @@ export const EMOTICONS = [
   '🤗', '😘', '🙄', '😤', '🥺', '😊', '🤭', '😋',
   '👍', '👎', '❤️', '💔', '🔥', '⭐', '🎉', '💯'
 ] as const;
+
+export const WEATHER_API = {
+  baseUrl: 'https://api.open-meteo.com/v1',
+  geocodingUrl: 'https://api.bigdatacloud.net/data/reverse-geocode-client'
+} as const;
