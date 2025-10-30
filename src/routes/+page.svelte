@@ -214,14 +214,10 @@
     style="backdrop-filter: saturate(180%) blur(30px);"
   >
     {#if $weather.loading}
-      <div
-        class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xl font-semibold shadow-lg animate-pulse"
-      >
-        <i class="fas fa-spinner fa-spin text-sm"></i>
-      </div>
-      <div class="flex-1">
-        <div class="text-white text-[15px] font-semibold mb-0.5">Getting location...</div>
-        <div class="text-white/80 text-[13px]">Please wait</div>
+      <div class="w-14 h-14 rounded-full bg-white/20 animate-pulse flex-shrink-0"></div>
+      <div class="flex-1 space-y-2">
+        <div class="h-4 bg-white/20 rounded w-32 animate-pulse"></div>
+        <div class="h-3 bg-white/20 rounded w-24 animate-pulse"></div>
       </div>
     {:else if $weather.data}
       {@const locationParts = $weather.data.location.split(', ')}

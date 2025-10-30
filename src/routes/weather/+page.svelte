@@ -3,6 +3,7 @@
   import { detectUser } from '$lib/utils/userDetection';
   import Header from '$lib/components/shared/Header.svelte';
   import DevSelector from '$lib/components/shared/DevSelector.svelte';
+  import ShimmerWeather from '$lib/components/shared/ShimmerWeather.svelte';
   import { weather } from '$lib/stores/weather';
   import { theme } from '$lib/stores/theme';
   
@@ -27,11 +28,7 @@
   <div class="flex-1 p-4 pt-[107px] max-w-full mx-auto overflow-y-auto" style="-webkit-overflow-scrolling: touch;">
     <div class="max-w-3xl mx-auto space-y-4 animate-[fade-in_0.4s_cubic-bezier(0.4,0,0.2,1)]">
       {#if $weather.loading}
-        <!-- Loading State -->
-        <div class="text-center text-[var(--text-primary)] py-20">
-          <i class="fas fa-spinner fa-spin text-6xl mb-4 opacity-60"></i>
-          <div class="text-xl">Loading weather data...</div>
-        </div>
+        <ShimmerWeather />
       {:else if $weather.error}
         <!-- Error State -->
         <div class="text-center text-[var(--text-primary)] py-20">

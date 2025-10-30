@@ -1,6 +1,8 @@
-import { writable, derived } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
-import { WEATHER_API } from '$lib/config';
+import { WEATHER_API, CACHE_DURATIONS } from '$lib/config';
+import { isCacheValid } from '$lib/utils/cache';
+import { getCurrentLocation, getLocationName } from '$lib/utils/location';
 
 interface WeatherData {
   location: string;
@@ -30,12 +32,14 @@ interface WeatherState {
   data: WeatherData | null;
   loading: boolean;
   error: string | null;
+  lastFetched: number | null;
 }
 
 const initialState: WeatherState = {
   data: null,
   loading: false,
-  error: null
+  error: null,
+  lastFetched: null
 };
 
 function createWeatherStore() {
@@ -63,66 +67,6 @@ function createWeatherStore() {
     return 'Thunderstorm';
   }
 
-  async function getCityName(lat: number, lon: number): Promise<string> {
-    try {
-      console.log('🔍 Reverse geocoding:', { lat, lon });
-      const response = await fetch(
-        `${WEATHER_API.geocodingUrl}?latitude=${lat}&longitude=${lon}&localityLanguage=en`
-      );
-      
-      if (!response.ok) {
-        throw new Error(`Geocoding failed: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      console.log('📍 Geocoding result:', data);
-      
-      if (data) {
-        const parts: string[] = [];
-        const administrative = data.localityInfo?.administrative || [];
-        
-        // Structure:
-        // [0] = Country, [1] = Island/Region, [2] = Province/State
-        // [3] = Regency/County, [4] = District/Subdistrict
-        
-        // Add district/subdistrict level (like Balongbendo)
-        const district = administrative[4]?.name;
-        const regency = administrative[3]?.name;
-        
-        // Add district if it exists and different from regency
-        if (district && district !== regency) {
-          parts.push(district);
-        }
-        
-        // Add regency/city level (like Sidoarjo)
-        if (regency && !parts.includes(regency)) {
-          parts.push(regency);
-        } else if (data.city && !parts.includes(data.city)) {
-          parts.push(data.city);
-        }
-        
-        // Add province/state level (like "Jawa Timur")
-        const province = administrative[2]?.name || data.principalSubdivision;
-        if (province && !parts.includes(province)) {
-          parts.push(province);
-        }
-        
-        // Add country
-        if (data.countryName && parts.length > 0) {
-          parts.push(data.countryName);
-        }
-        
-        const locationString = parts.length > 0 ? parts.join(', ') : 'Unknown Location';
-        console.log('✅ Location formatted:', locationString);
-        return locationString;
-      }
-      return 'Unknown Location';
-    } catch (error) {
-      console.error('❌ Geocoding error:', error);
-      return 'Unknown Location';
-    }
-  }
-
   async function fetchWeather(latitude: number, longitude: number) {
     update(state => ({ ...state, loading: true, error: null }));
 
@@ -140,7 +84,7 @@ function createWeatherStore() {
       if (!response.ok) throw new Error('Failed to fetch weather data');
       
       const data = await response.json();
-      const cityName = await getCityName(latitude, longitude);
+      const cityName = await getLocationName({ latitude, longitude });
 
       const now = new Date();
       const currentHour = now.getHours();
@@ -182,67 +126,42 @@ function createWeatherStore() {
         daily: dailyData
       };
 
-      set({ data: weatherData, loading: false, error: null });
+      set({ data: weatherData, loading: false, error: null, lastFetched: Date.now() });
     } catch (error) {
       set({
         data: null,
         loading: false,
-        error: error instanceof Error ? error.message : 'Failed to load weather'
+        error: error instanceof Error ? error.message : 'Failed to load weather',
+        lastFetched: null
       });
     }
   }
 
-  function loadWeather() {
+  async function loadWeather(forceRefresh: boolean = false) {
     if (!browser) return;
 
+    // Check if we have valid cached data
+    let currentState: WeatherState | undefined;
+    const unsubscribe = subscribe(state => { currentState = state; });
+    unsubscribe();
+    
+    if (!forceRefresh && currentState?.data && isCacheValid(currentState.lastFetched, CACHE_DURATIONS.weather)) {
+      console.log('✅ Using cached weather data');
+      return;
+    }
+
+    console.log('🔄 Fetching fresh weather data...');
     update(state => ({ ...state, loading: true, error: null }));
 
-    if ('geolocation' in navigator) {
-      // Request high accuracy location
-      const options = {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 300000 // Cache for 5 minutes
-      };
-
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log('📍 Location obtained:', {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-            accuracy: position.coords.accuracy
-          });
-          fetchWeather(position.coords.latitude, position.coords.longitude);
-        },
-        (error) => {
-          console.error('Location error:', error);
-          let errorMessage = 'Location access denied.';
-          
-          switch(error.code) {
-            case error.PERMISSION_DENIED:
-              errorMessage = 'Location access denied. Please enable location services.';
-              break;
-            case error.POSITION_UNAVAILABLE:
-              errorMessage = 'Location unavailable. Please check your connection.';
-              break;
-            case error.TIMEOUT:
-              errorMessage = 'Location request timed out. Please try again.';
-              break;
-          }
-          
-          update(state => ({
-            ...state,
-            loading: false,
-            error: errorMessage
-          }));
-        },
-        options
-      );
-    } else {
+    try {
+      const coords = await getCurrentLocation(forceRefresh);
+      await fetchWeather(coords.latitude, coords.longitude);
+    } catch (error) {
       update(state => ({
         ...state,
         loading: false,
-        error: 'Geolocation is not supported by your browser'
+        error: error instanceof Error ? error.message : 'Failed to get location',
+        lastFetched: null
       }));
     }
   }
@@ -250,7 +169,7 @@ function createWeatherStore() {
   return {
     subscribe,
     loadWeather,
-    refresh: loadWeather
+    refresh: () => loadWeather(true)
   };
 }
 

@@ -2,14 +2,24 @@ import { writable } from 'svelte/store';
 import { supabase } from '$lib/supabase';
 import type { Message, ConnectionStatus } from '$lib/types';
 import type { RealtimeChannel } from '@supabase/supabase-js';
+import { isCacheValid } from '$lib/utils/cache';
+import { CACHE_DURATIONS } from '$lib/config';
 
 export const messages = writable<Message[]>([]);
 export const isLoading = writable<boolean>(false);
 export const connectionStatus = writable<ConnectionStatus>('connecting');
 
 let realtimeChannel: RealtimeChannel | null = null;
+let lastFetched: number | null = null;
 
-export async function loadMessages(): Promise<void> {
+export async function loadMessages(forceRefresh: boolean = false): Promise<void> {
+  // Check cache validity
+  if (!forceRefresh && lastFetched && isCacheValid(lastFetched, CACHE_DURATIONS.messages)) {
+    console.log('✅ Using cached messages');
+    return;
+  }
+
+  console.log('🔄 Fetching fresh messages...');
   isLoading.set(true);
   
   try {
@@ -22,14 +32,20 @@ export async function loadMessages(): Promise<void> {
     if (error) throw error;
     
     messages.set(data || []);
+    lastFetched = Date.now();
     connectionStatus.set('connected');
   } catch (error) {
     console.error('Error loading messages:', error);
+    lastFetched = null;
     connectionStatus.set('error');
     throw error;
   } finally {
     isLoading.set(false);
   }
+}
+
+export function refreshMessages(): Promise<void> {
+  return loadMessages(true);
 }
 
 export async function sendMessage(messageText: string, senderName: string): Promise<Message> {
@@ -47,6 +63,9 @@ export async function sendMessage(messageText: string, senderName: string): Prom
     .single();
   
   if (error) throw error;
+  
+  // Update cache timestamp after sending
+  lastFetched = Date.now();
   
   return data;
 }
@@ -67,6 +86,8 @@ export function subscribeToMessages(userName: string): RealtimeChannel {
       },
       (payload) => {
         messages.update(msgs => [...msgs, payload.new as Message]);
+        // Update cache timestamp when new message arrives
+        lastFetched = Date.now();
         
         if ((payload.new as Message).recipient_name === userName) {
           markMessageAsRead((payload.new as Message).id);

@@ -19,5 +19,12 @@ export const EMOTICONS = [
 
 export const WEATHER_API = {
   baseUrl: 'https://api.open-meteo.com/v1',
-  geocodingUrl: 'https://api.bigdatacloud.net/data/reverse-geocode-client'
+  geocodingUrl: 'https://api.bigdatacloud.net/data/reverse-geocode-client',
+  cacheDuration: 15 * 1000 // 15 seconds
+} as const;
+
+export const CACHE_DURATIONS = {
+  weather: 15 * 1000, // 15 seconds
+  messages: 15 * 1000, // 15 seconds
+  location: 15 * 1000 // 15 seconds
 } as const;
