@@ -78,10 +78,20 @@ export async function fetchPopularTracks(limit: number = 20): Promise<Track[]> {
     const response = await fetch(`/api/music/popular?limit=${limit}`);
     
     if (!response.ok) {
-      throw new Error('Failed to fetch popular tracks');
+      const text = await response.text();
+      console.error('[fetchPopularTracks] Response not OK:', response.status, text.substring(0, 200));
+      throw new Error(`Failed to fetch popular tracks: ${response.status}`);
+    }
+
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      console.error('[fetchPopularTracks] Not JSON response:', contentType, text.substring(0, 200));
+      throw new Error('Invalid response format');
     }
 
     const tracks = await response.json();
+    console.log('[fetchPopularTracks] Successfully loaded', tracks.length, 'tracks');
     return tracks;
   } catch (error) {
     console.error('Error fetching popular tracks:', error);
