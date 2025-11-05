@@ -138,11 +138,11 @@
   }
 
   const appIconClass =
-    "flex flex-col items-center gap-1.5 no-underline transition-transform duration-200 active:scale-[0.88]";
+    "flex flex-col items-center gap-1 no-underline transition-transform duration-200 active:scale-[0.88]";
   const appIconImageClass =
-    "w-full aspect-square flex items-center justify-center text-[28px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]";
+    "w-full aspect-square flex items-center justify-center text-[24px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]";
   const appNameClass =
-    "text-[11px] font-medium text-white text-center max-w-full overflow-hidden text-ellipsis whitespace-nowrap";
+    "text-[10px] font-medium text-white text-center max-w-full overflow-hidden text-ellipsis whitespace-nowrap";
 </script>
 
 <svelte:head>
@@ -151,12 +151,12 @@
 
 <div
   class="h-screen px-4 sm:px-6 relative flex flex-col bg-gradient-to-b from-[#87CEEB] via-[#5B9FD7] to-[#4A90C8]"
-  style="padding-top: 70px; padding-bottom: 140px;"
+  style="padding-top: 70px; padding-bottom: 120px;"
 >
   <!-- iOS Dock - Inside iPhone Frame (positioned to stay visible) -->
   <div
-    class="absolute flex items-center justify-center gap-5 sm:gap-6 px-5 sm:px-6 py-4 sm:py-4.5 z-[10000] rounded-[34px] sm:rounded-[38px] bg-white/12 backdrop-blur-[40px] border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
-    style="bottom: 20px; left: -16px; right: -16px; width: calc(100% + 32px); backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); pointer-events: auto;"
+    class="absolute left-1/2 -translate-x-1/2 flex items-center justify-center gap-4 sm:gap-5 px-4 sm:px-5 py-3 sm:py-3.5 z-[10000] rounded-[32px] sm:rounded-[36px] bg-white/12 backdrop-blur-[40px] border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
+    style="bottom: 16px; backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); pointer-events: auto;"
   >
     <a
       href="/chat"
@@ -164,7 +164,7 @@
       aria-label="Messages"
     >
       <div
-        class="w-[60px] h-[60px] sm:w-[64px] sm:h-[64px] flex items-center justify-center text-[32px] sm:text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#32D74B_0%,#248A3D_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+        class="w-[54px] h-[54px] sm:w-[58px] sm:h-[58px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#32D74B_0%,#248A3D_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
       >
         <i
           class="fas fa-comment text-white"
@@ -179,7 +179,7 @@
       aria-label="Safari"
     >
       <div
-        class="w-[60px] h-[60px] sm:w-[64px] sm:h-[64px] flex items-center justify-center text-[32px] sm:text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+        class="w-[54px] h-[54px] sm:w-[58px] sm:h-[58px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
       >
         <i
           class="fas fa-compass text-white"
@@ -194,7 +194,7 @@
       aria-label="Music"
     >
       <div
-        class="w-[60px] h-[60px] sm:w-[64px] sm:h-[64px] flex items-center justify-center text-[32px] sm:text-[36px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+        class="w-[54px] h-[54px] sm:w-[58px] sm:h-[58px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
         style="background: linear-gradient(135deg, #FF375F 0%, #FF2D55 100%);"
       >
         <i
@@ -210,7 +210,7 @@
       aria-label="Photos"
     >
       <div
-        class="w-[60px] h-[60px] sm:w-[64px] sm:h-[64px] flex items-center justify-center text-[32px] sm:text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+        class="w-[54px] h-[54px] sm:w-[58px] sm:h-[58px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
       >
         <i
           class="fas fa-images text-white"
@@ -220,11 +220,11 @@
     </a>
   </div>
   <!-- Widgets Grid -->
-  <div class="mb-4 sm:mb-5 grid grid-cols-2 gap-2.5 sm:gap-3 relative z-10">
+  <div class="mb-3 sm:mb-4 grid grid-cols-2 gap-2 sm:gap-2.5 relative z-10">
     <!-- Weather Widget -->
     <a href="/weather" class="block no-underline">
       <div
-        class="p-4 rounded-[22px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all active:scale-95"
+        class="p-3 sm:p-3.5 rounded-[20px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all active:scale-95"
         style="backdrop-filter: saturate(180%) blur(30px);"
       >
         {#if $weather.loading}
@@ -234,7 +234,7 @@
             Loading...
           </div>
           <div
-            class="text-white text-[36px] sm:text-[42px] font-light leading-none mb-2"
+            class="text-white text-[32px] sm:text-[38px] font-light leading-none mb-1.5"
           >
             --°
           </div>
@@ -245,7 +245,7 @@
             No Location
           </div>
           <div
-            class="text-white text-[36px] sm:text-[42px] font-light leading-none mb-2"
+            class="text-white text-[32px] sm:text-[38px] font-light leading-none mb-1.5"
           >
             --°
           </div>
@@ -259,16 +259,16 @@
             {$weather.data.location}
           </div>
           <div
-            class="text-white text-[36px] sm:text-[42px] font-light leading-none mb-2"
+            class="text-white text-[32px] sm:text-[38px] font-light leading-none mb-1.5"
           >
             {$weather.data.temperature}°
           </div>
           <div
-            class="text-white/80 text-[12px] sm:text-[13px] font-medium mb-1"
+            class="text-white/80 text-[11px] sm:text-[12px] font-medium mb-0.5"
           >
             {$weather.data.condition}
           </div>
-          <div class="text-white/70 text-[10px] sm:text-[11px]">
+          <div class="text-white/70 text-[9px] sm:text-[10px]">
             H:{$weather.data.high}° L:{$weather.data.low}°
           </div>
         {/if}
@@ -277,7 +277,7 @@
 
     <!-- Calendar Widget -->
     <div
-      class="p-3 rounded-[22px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+      class="p-2.5 sm:p-3 rounded-[20px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
       style="backdrop-filter: saturate(180%) blur(30px);"
     >
       <div
@@ -308,7 +308,7 @@
 
   <!-- Location Widget -->
   <div
-    class="mb-4 sm:mb-5 p-3 sm:p-4 rounded-[22px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)] relative z-10 flex items-center gap-2.5 sm:gap-3"
+    class="mb-3 sm:mb-4 p-2.5 sm:p-3 rounded-[20px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)] relative z-10 flex items-center gap-2 sm:gap-2.5"
     style="backdrop-filter: saturate(180%) blur(30px);"
   >
     {#if $weather.loading}
@@ -365,11 +365,11 @@
 
   <!-- iOS App Grid Container with Swipe -->
   <div
-    class="relative z-10 overflow-x-hidden overflow-y-auto flex-1"
+    class="relative z-10 overflow-x-hidden overflow-y-hidden flex-1"
     ontouchstart={handleTouchStart}
     ontouchmove={handleTouchMove}
     ontouchend={handleTouchEnd}
-    style="overflow-y: auto; padding-bottom: 80px;"
+    style="overflow-y: hidden;"
   >
     <div
       class="flex transition-transform duration-300 ease-out h-full"
@@ -378,7 +378,7 @@
       <!-- Page 1 -->
       <div class="min-w-full px-1 sm:px-2">
         <div
-          class="grid grid-cols-4 gap-y-4 gap-x-3 sm:gap-y-5 sm:gap-x-4 mx-auto max-w-full px-0.5"
+          class="grid grid-cols-4 gap-y-3 gap-x-2.5 sm:gap-y-4 sm:gap-x-3 mx-auto max-w-full px-0.5"
         >
           <!-- Messages -->
           <a href="/chat" class={appIconClass}>
@@ -578,7 +578,7 @@
       <!-- Page 2 -->
       <div class="min-w-full px-1 sm:px-2">
         <div
-          class="grid grid-cols-4 gap-y-4 gap-x-3 sm:gap-y-5 sm:gap-x-4 mx-auto max-w-full px-0.5"
+          class="grid grid-cols-4 gap-y-3 gap-x-2.5 sm:gap-y-4 sm:gap-x-3 mx-auto max-w-full px-0.5"
         >
           <!-- Reminders -->
           <div class={appIconClass}>
@@ -678,7 +678,7 @@
   </div>
 
   <!-- Page Dots -->
-  <div class="flex items-center justify-center gap-2 mt-auto mb-2 sm:mb-3">
+  <div class="flex items-center justify-center gap-1.5 mt-auto mb-1.5 sm:mb-2">
     {#each Array(totalPages) as _, i}
       <button
         onclick={() => goToPage(i)}
