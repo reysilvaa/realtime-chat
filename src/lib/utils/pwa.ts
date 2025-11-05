@@ -122,54 +122,61 @@ export async function showNotification(title: string, options?: NotificationOpti
 
   console.log('✅ Permission granted, showing notification:', title);
 
-  // Check if service worker is available
-  if (!('serviceWorker' in navigator)) {
-    console.log('⚠️ Service Worker not available, using browser notification');
-    // Fallback to browser notification if service worker not available
+  // Prioritize Service Worker notification (akan muncul di system notification tray)
+  if ('serviceWorker' in navigator) {
     try {
-      const notification = new Notification(title, {
-        icon: '/pwa-192x192.png',
+      // Wait for service worker to be ready
+      const registration = await navigator.serviceWorker.ready;
+      console.log('✅ Service Worker ready, showing system notification');
+      
+      const notificationOptions: any = {
         badge: '/pwa-192x192.png',
+        icon: '/pwa-192x192.png',
+        tag: options?.tag || 'default',
+        requireInteraction: false,
+        silent: false,
+        vibrate: [200, 100, 200],
+        timestamp: Date.now(),
+        // Ensure notification appears in system tray
+        dir: 'ltr',
+        lang: 'id',
         ...options
-      });
-      console.log('✅ Browser notification shown');
+      };
+      
+      // Show notification via service worker (ini akan muncul di system notification tray)
+      await registration.showNotification(title, notificationOptions);
+      console.log('✅ System notification shown via Service Worker');
       return;
     } catch (error) {
-      console.error('❌ Error showing browser notification:', error);
-      return;
+      console.error('❌ Error showing service worker notification:', error);
+      // Fall through to browser notification fallback
     }
   }
 
+  // Fallback to browser notification (juga muncul di system notification tray)
+  console.log('⚠️ Using browser notification fallback');
   try {
-    // Wait for service worker to be ready
-    const registration = await navigator.serviceWorker.ready;
-    console.log('✅ Service Worker ready');
-    
     const notificationOptions: any = {
-      badge: '/pwa-192x192.png',
       icon: '/pwa-192x192.png',
+      badge: '/pwa-192x192.png',
       tag: options?.tag || 'default',
-      requireInteraction: false,
-      silent: false,
-      vibrate: [200, 100, 200],
       ...options
     };
+    delete notificationOptions.timestamp;
     
-    await registration.showNotification(title, notificationOptions);
-    console.log('✅ Service Worker notification shown');
+    const notification = new Notification(title, notificationOptions);
+    console.log('✅ Browser notification shown (system notification)');
+    
+    // Handle click
+    notification.onclick = (event) => {
+      event.preventDefault();
+      if (options?.data?.url) {
+        window.location.href = options.data.url;
+      }
+      notification.close();
+    };
   } catch (error) {
-    console.error('❌ Error showing service worker notification:', error);
-    // Fallback to browser notification
-    try {
-      const notification = new Notification(title, {
-        icon: '/pwa-192x192.png',
-        badge: '/pwa-192x192.png',
-        ...options
-      });
-      console.log('✅ Fallback browser notification shown');
-    } catch (fallbackError) {
-      console.error('❌ Error showing fallback notification:', fallbackError);
-    }
+    console.error('❌ Error showing browser notification:', error);
   }
 }
 
@@ -191,9 +198,17 @@ export async function showMessageNotification(senderName: string, message: strin
       {
         action: 'open',
         title: 'Buka Chat'
+      },
+      {
+        action: 'close',
+        title: 'Tutup'
       }
     ],
-    renotify: true
+    renotify: true,
+    // Ensure notification appears prominently in system tray
+    requireInteraction: false,
+    silent: false,
+    vibrate: [200, 100, 200]
   };
   
   await showNotification(`${senderName}`, notificationOptions);
