@@ -4,6 +4,8 @@ import type { Message, ConnectionStatus } from '$lib/types';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { isCacheValid } from '$lib/utils/cache';
 import { CACHE_DURATIONS } from '$lib/config';
+import { showMessageNotification } from '$lib/utils/pwa';
+import { browser } from '$app/environment';
 
 export const messages = writable<Message[]>([]);
 export const isLoading = writable<boolean>(false);
@@ -85,12 +87,22 @@ export function subscribeToMessages(userName: string): RealtimeChannel {
         table: 'messages'
       },
       (payload) => {
-        messages.update(msgs => [...msgs, payload.new as Message]);
+        const newMessage = payload.new as Message;
+        messages.update(msgs => [...msgs, newMessage]);
         // Update cache timestamp when new message arrives
         lastFetched = Date.now();
         
-        if ((payload.new as Message).recipient_name === userName) {
-          markMessageAsRead((payload.new as Message).id);
+        // Show notification if message is for current user
+        if (newMessage.recipient_name === userName) {
+          markMessageAsRead(newMessage.id);
+          
+          // Show push notification (even in foreground for better UX)
+          if (browser) {
+            // Only show if app is hidden or if user wants notifications always
+            if (document.hidden || !document.hasFocus()) {
+              showMessageNotification(newMessage.sender_name, newMessage.message);
+            }
+          }
         }
       }
     )

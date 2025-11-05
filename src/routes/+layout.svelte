@@ -18,9 +18,21 @@
     theme.init();
   });
 
-  // Register PWA service worker
-  onMount(() => {
+  // Register PWA service worker and request notification permission
+  onMount(async () => {
     registerServiceWorker();
+
+    // Request notification permission after a short delay
+    setTimeout(async () => {
+      const { requestNotificationPermission } = await import("$lib/utils/pwa");
+      const permission = await requestNotificationPermission();
+
+      if (permission === "granted") {
+        console.log("✅ Notification permission granted");
+      } else if (permission === "denied") {
+        console.log("❌ Notification permission denied");
+      }
+    }, 1000);
   });
 </script>
 

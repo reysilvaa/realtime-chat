@@ -27,6 +27,18 @@ function registerSW() {
     .then((registration: ServiceWorkerRegistration) => {
       console.log('Service Worker registered:', registration);
       
+      // Setup notification click handler
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data && event.data.type === 'notificationclick') {
+            const notificationData = event.data.data;
+            if (notificationData && notificationData.url) {
+              window.location.href = notificationData.url;
+            }
+          }
+        });
+      }
+      
       // Check for updates periodically
       setInterval(() => {
         registration.update();
@@ -72,17 +84,67 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
 }
 
 export async function showNotification(title: string, options?: NotificationOptions) {
-  if (!browser || !('Notification' in window)) {
+  if (!browser) {
     return;
   }
 
-  if (Notification.permission === 'granted') {
-    const registration = await navigator.serviceWorker.ready;
-    registration.showNotification(title, {
-      badge: '/pwa-192x192.png',
-      icon: '/pwa-192x192.png',
-      ...options
-    });
+  // Check if service worker is available
+  if (!('serviceWorker' in navigator)) {
+    // Fallback to browser notification if service worker not available
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification(title, {
+        icon: '/pwa-192x192.png',
+        badge: '/pwa-192x192.png',
+        ...options
+      });
+    }
+    return;
   }
+
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    
+    if (Notification.permission === 'granted') {
+      const notificationOptions: any = {
+        badge: '/pwa-192x192.png',
+        icon: '/pwa-192x192.png',
+        tag: options?.tag || 'default',
+        requireInteraction: false,
+        silent: false,
+        vibrate: [200, 100, 200],
+        ...options
+      };
+      
+      await registration.showNotification(title, notificationOptions);
+    }
+  } catch (error) {
+    console.error('Error showing notification:', error);
+  }
+}
+
+export async function showMessageNotification(senderName: string, message: string) {
+  // Truncate long messages
+  const truncatedMessage = message.length > 50 ? message.substring(0, 50) + '...' : message;
+  
+  const notificationOptions: any = {
+    tag: `message-${senderName}`,
+    body: truncatedMessage,
+    icon: '/pwa-192x192.png',
+    badge: '/pwa-192x192.png',
+    data: {
+      url: '/chat',
+      sender: senderName,
+      timestamp: Date.now()
+    },
+    actions: [
+      {
+        action: 'open',
+        title: 'Buka Chat'
+      }
+    ],
+    renotify: true
+  };
+  
+  await showNotification(`${senderName}`, notificationOptions);
 }
 
