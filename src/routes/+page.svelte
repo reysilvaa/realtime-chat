@@ -155,12 +155,16 @@
 >
   <!-- iOS Dock - Inside iPhone Frame (positioned to stay visible) -->
   <div
-    class="absolute left-1/2 -translate-x-1/2 flex gap-4 sm:gap-6 px-5 sm:px-6 py-3 sm:py-3.5 z-[10000] rounded-[30px] sm:rounded-[35px] bg-white/12 backdrop-blur-[40px] border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
-    style="bottom: 20px; left: 16px; right: 16px; width: auto; max-width: none; backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); pointer-events: auto;"
+    class="absolute flex items-center justify-center gap-5 sm:gap-6 px-5 sm:px-6 py-4 sm:py-4.5 z-[10000] rounded-[34px] sm:rounded-[38px] bg-white/12 backdrop-blur-[40px] border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
+    style="bottom: 20px; left: 0; right: 0; width: 100%; backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); pointer-events: auto;"
   >
-    <a href="/chat" class={appIconClass} aria-label="Messages">
+    <a
+      href="/chat"
+      class="flex items-center justify-center no-underline transition-transform duration-200 active:scale-[0.88]"
+      aria-label="Messages"
+    >
       <div
-        class="w-[52px] h-[52px] sm:w-[56px] sm:h-[56px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#32D74B_0%,#248A3D_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+        class="w-[60px] h-[60px] sm:w-[64px] sm:h-[64px] flex items-center justify-center text-[32px] sm:text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#32D74B_0%,#248A3D_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
       >
         <i
           class="fas fa-comment text-white"
@@ -169,9 +173,13 @@
       </div>
     </a>
 
-    <a href="/safari" class={appIconClass} aria-label="Safari">
+    <a
+      href="/safari"
+      class="flex items-center justify-center no-underline transition-transform duration-200 active:scale-[0.88]"
+      aria-label="Safari"
+    >
       <div
-        class="w-[52px] h-[52px] sm:w-[56px] sm:h-[56px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+        class="w-[60px] h-[60px] sm:w-[64px] sm:h-[64px] flex items-center justify-center text-[32px] sm:text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
       >
         <i
           class="fas fa-compass text-white"
@@ -180,9 +188,13 @@
       </div>
     </a>
 
-    <a href="/music" class={appIconClass} aria-label="Music">
+    <a
+      href="/music"
+      class="flex items-center justify-center no-underline transition-transform duration-200 active:scale-[0.88]"
+      aria-label="Music"
+    >
       <div
-        class="w-[52px] h-[52px] sm:w-[56px] sm:h-[56px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+        class="w-[60px] h-[60px] sm:w-[64px] sm:h-[64px] flex items-center justify-center text-[32px] sm:text-[36px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
         style="background: linear-gradient(135deg, #FF375F 0%, #FF2D55 100%);"
       >
         <i
@@ -192,9 +204,13 @@
       </div>
     </a>
 
-    <a href="/photos" class={appIconClass} aria-label="Photos">
+    <a
+      href="/photos"
+      class="flex items-center justify-center no-underline transition-transform duration-200 active:scale-[0.88]"
+      aria-label="Photos"
+    >
       <div
-        class="w-[52px] h-[52px] sm:w-[56px] sm:h-[56px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+        class="w-[60px] h-[60px] sm:w-[64px] sm:h-[64px] flex items-center justify-center text-[32px] sm:text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
       >
         <i
           class="fas fa-images text-white"
