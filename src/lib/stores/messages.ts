@@ -96,11 +96,21 @@ export function subscribeToMessages(userName: string): RealtimeChannel {
         if (newMessage.recipient_name === userName) {
           markMessageAsRead(newMessage.id);
           
-          // Show push notification (even in foreground for better UX)
+          // Show push notification
           if (browser) {
-            // Only show if app is hidden or if user wants notifications always
-            if (document.hidden || !document.hasFocus()) {
-              showMessageNotification(newMessage.sender_name, newMessage.message);
+            // Check if we're on the chat page - if yes, don't show notification
+            const isOnChatPage = window.location.pathname === '/chat';
+            
+            // Show notification if:
+            // 1. App is hidden/not focused, OR
+            // 2. User is not on chat page (to avoid duplicate notifications)
+            if (!isOnChatPage || document.hidden || !document.hasFocus()) {
+              console.log('📬 Showing notification for message from:', newMessage.sender_name);
+              showMessageNotification(newMessage.sender_name, newMessage.message).catch(err => {
+                console.error('❌ Error showing notification:', err);
+              });
+            } else {
+              console.log('📍 User is on chat page, skipping notification');
             }
           }
         }

@@ -21,6 +21,8 @@
 
   // Register PWA service worker and request notification permission
   onMount(async () => {
+    // vite-plugin-pwa akan auto-register service worker
+    // Kita hanya perlu setup handlers
     registerServiceWorker();
 
     // Hide system UI bars
@@ -105,12 +107,32 @@
     // Request notification permission after a short delay
     setTimeout(async () => {
       const { requestNotificationPermission } = await import("$lib/utils/pwa");
-      const permission = await requestNotificationPermission();
 
-      if (permission === "granted") {
-        console.log("✅ Notification permission granted");
-      } else if (permission === "denied") {
-        console.log("❌ Notification permission denied");
+      // Check current permission first
+      if (typeof window !== "undefined" && "Notification" in window) {
+        const NotificationAPI = window.Notification;
+        console.log(
+          "📱 Current notification permission:",
+          NotificationAPI.permission
+        );
+
+        if (NotificationAPI.permission === "default") {
+          // Only request if permission is not yet set
+          const permission = await requestNotificationPermission();
+
+          if (permission === "granted") {
+            console.log("✅ Notification permission granted");
+          } else if (permission === "denied") {
+            console.log("❌ Notification permission denied");
+          } else {
+            console.log("⚠️ Notification permission:", permission);
+          }
+        } else {
+          console.log(
+            "📱 Notification permission already set to:",
+            NotificationAPI.permission
+          );
+        }
       }
     }, 1000);
   });
