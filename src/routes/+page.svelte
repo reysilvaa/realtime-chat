@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
   import { detectUser } from "$lib/utils/userDetection";
   import type { User } from "$lib/types";
   import { stats, loadStats } from "$lib/stores/stats";
   import { logDevInfo } from "$lib/utils/devTools";
   import DevSelector from "$lib/components/shared/DevSelector.svelte";
   import ControlCenter from "$lib/components/shared/ControlCenter.svelte";
-  import { weather } from '$lib/stores/weather';
+  import { weather } from "$lib/stores/weather";
 
   let user = $state<User | null>(detectUser());
   let statsData = $stats;
@@ -138,11 +138,11 @@
   }
 
   const appIconClass =
-    "flex flex-col items-center gap-2.5 no-underline transition-transform duration-200 active:scale-[0.88]";
+    "flex flex-col items-center gap-1.5 no-underline transition-transform duration-200 active:scale-[0.88]";
   const appIconImageClass =
-    "w-full aspect-square flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]";
+    "w-full aspect-square flex items-center justify-center text-[28px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]";
   const appNameClass =
-    "text-[13px] font-medium text-white text-center max-w-full overflow-hidden text-ellipsis whitespace-nowrap";
+    "text-[11px] font-medium text-white text-center max-w-full overflow-hidden text-ellipsis whitespace-nowrap";
 </script>
 
 <svelte:head>
@@ -150,11 +150,61 @@
 </svelte:head>
 
 <div
-  class="h-screen px-6 relative overflow-hidden flex flex-col bg-gradient-to-b from-[#87CEEB] via-[#5B9FD7] to-[#4A90C8]"
-  style="padding-top: 70px; padding-bottom: 110px;"
+  class="h-screen px-4 sm:px-6 relative overflow-hidden flex flex-col bg-gradient-to-b from-[#87CEEB] via-[#5B9FD7] to-[#4A90C8]"
+  style="padding-top: 70px; padding-bottom: 140px;"
 >
+  <!-- iOS Dock - Inside iPhone Frame -->
+  <div
+    class="absolute left-1/2 -translate-x-1/2 flex gap-3 sm:gap-4 px-3 sm:px-4 py-2.5 sm:py-3 z-[100] rounded-[24px] sm:rounded-[30px] bg-white/12 backdrop-blur-[40px] border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
+    style="bottom: 16px; backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px);"
+  >
+    <a href="/chat" class={appIconClass} aria-label="Messages">
+      <div
+        class="w-[52px] h-[52px] sm:w-[56px] sm:h-[56px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#32D74B_0%,#248A3D_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+      >
+        <i
+          class="fas fa-comment text-white"
+          style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"
+        ></i>
+      </div>
+    </a>
+
+    <a href="/safari" class={appIconClass} aria-label="Safari">
+      <div
+        class="w-[52px] h-[52px] sm:w-[56px] sm:h-[56px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+      >
+        <i
+          class="fas fa-compass text-white"
+          style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"
+        ></i>
+      </div>
+    </a>
+
+    <a href="/music" class={appIconClass} aria-label="Music">
+      <div
+        class="w-[52px] h-[52px] sm:w-[56px] sm:h-[56px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+        style="background: linear-gradient(135deg, #FF375F 0%, #FF2D55 100%);"
+      >
+        <i
+          class="fas fa-music text-white"
+          style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"
+        ></i>
+      </div>
+    </a>
+
+    <a href="/photos" class={appIconClass} aria-label="Photos">
+      <div
+        class="w-[52px] h-[52px] sm:w-[56px] sm:h-[56px] flex items-center justify-center text-[28px] sm:text-[32px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
+      >
+        <i
+          class="fas fa-images text-white"
+          style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"
+        ></i>
+      </div>
+    </a>
+  </div>
   <!-- Widgets Grid -->
-  <div class="mb-5 grid grid-cols-2 gap-3 relative z-10">
+  <div class="mb-4 sm:mb-5 grid grid-cols-2 gap-2.5 sm:gap-3 relative z-10">
     <!-- Weather Widget -->
     <a href="/weather" class="block no-underline">
       <div
@@ -162,21 +212,49 @@
         style="backdrop-filter: saturate(180%) blur(30px);"
       >
         {#if $weather.loading}
-          <div class="text-white/90 text-[13px] font-medium mb-0.5">Loading...</div>
-          <div class="text-white text-[42px] font-light leading-none mb-2">--°</div>
+          <div
+            class="text-white/90 text-[12px] sm:text-[13px] font-medium mb-0.5"
+          >
+            Loading...
+          </div>
+          <div
+            class="text-white text-[36px] sm:text-[42px] font-light leading-none mb-2"
+          >
+            --°
+          </div>
         {:else if $weather.error}
-          <div class="text-white/90 text-[13px] font-medium mb-0.5">No Location</div>
-          <div class="text-white text-[42px] font-light leading-none mb-2">--°</div>
-          <div class="text-white/80 text-[11px]">Tap to enable</div>
+          <div
+            class="text-white/90 text-[12px] sm:text-[13px] font-medium mb-0.5"
+          >
+            No Location
+          </div>
+          <div
+            class="text-white text-[36px] sm:text-[42px] font-light leading-none mb-2"
+          >
+            --°
+          </div>
+          <div class="text-white/80 text-[10px] sm:text-[11px]">
+            Tap to enable
+          </div>
         {:else if $weather.data}
-          <div class="text-white/90 text-[13px] font-medium mb-0.5">
+          <div
+            class="text-white/90 text-[12px] sm:text-[13px] font-medium mb-0.5"
+          >
             {$weather.data.location}
           </div>
-          <div class="text-white text-[42px] font-light leading-none mb-2">{$weather.data.temperature}°</div>
-          <div class="text-white/80 text-[13px] font-medium mb-1">
+          <div
+            class="text-white text-[36px] sm:text-[42px] font-light leading-none mb-2"
+          >
+            {$weather.data.temperature}°
+          </div>
+          <div
+            class="text-white/80 text-[12px] sm:text-[13px] font-medium mb-1"
+          >
             {$weather.data.condition}
           </div>
-          <div class="text-white/70 text-[11px]">H:{$weather.data.high}° L:{$weather.data.low}°</div>
+          <div class="text-white/70 text-[10px] sm:text-[11px]">
+            H:{$weather.data.high}° L:{$weather.data.low}°
+          </div>
         {/if}
       </div>
     </a>
@@ -186,10 +264,14 @@
       class="p-3 rounded-[22px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
       style="backdrop-filter: saturate(180%) blur(30px);"
     >
-      <div class="text-[#FF9500] text-[10px] font-bold mb-1 text-center">
+      <div
+        class="text-[#FF9500] text-[9px] sm:text-[10px] font-bold mb-1 text-center"
+      >
         {currentMonth}
       </div>
-      <div class="grid grid-cols-7 gap-0.5 text-[9px] text-white/90">
+      <div
+        class="grid grid-cols-7 gap-0.5 text-[8px] sm:text-[9px] text-white/90"
+      >
         {#each ["S", "M", "T", "W", "T", "F", "S"] as day}
           <div class="text-center font-medium">{day}</div>
         {/each}
@@ -210,44 +292,56 @@
 
   <!-- Location Widget -->
   <div
-    class="mb-5 p-4 rounded-[22px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)] relative z-10 flex items-center gap-3"
+    class="mb-4 sm:mb-5 p-3 sm:p-4 rounded-[22px] bg-white/15 backdrop-blur-[30px] border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.15)] relative z-10 flex items-center gap-2.5 sm:gap-3"
     style="backdrop-filter: saturate(180%) blur(30px);"
   >
     {#if $weather.loading}
-      <div class="w-14 h-14 rounded-full bg-white/20 animate-pulse flex-shrink-0"></div>
+      <div
+        class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/20 animate-pulse flex-shrink-0"
+      ></div>
       <div class="flex-1 space-y-2">
-        <div class="h-4 bg-white/20 rounded w-32 animate-pulse"></div>
-        <div class="h-3 bg-white/20 rounded w-24 animate-pulse"></div>
+        <div
+          class="h-3.5 sm:h-4 bg-white/20 rounded w-28 sm:w-32 animate-pulse"
+        ></div>
+        <div
+          class="h-2.5 sm:h-3 bg-white/20 rounded w-20 sm:w-24 animate-pulse"
+        ></div>
       </div>
     {:else if $weather.data}
-      {@const locationParts = $weather.data.location.split(', ')}
-      {@const initials = locationParts.map(part => part.charAt(0).toUpperCase()).join('')}
+      {@const locationParts = $weather.data.location.split(", ")}
+      {@const initials = locationParts
+        .map((part) => part.charAt(0).toUpperCase())
+        .join("")}
       <div
-        class="w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-xl font-semibold shadow-lg"
+        class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-lg sm:text-xl font-semibold shadow-lg"
       >
         {initials.substring(0, 2)}
       </div>
       <div class="flex-1">
-        <div class="text-white text-[15px] font-semibold mb-0.5">
-          {locationParts[0] || 'Current Location'}
+        <div class="text-white text-[14px] sm:text-[15px] font-semibold mb-0.5">
+          {locationParts[0] || "Current Location"}
         </div>
-        <div class="text-white/80 text-[13px]">
-          {locationParts.slice(1).join(', ') || 'Unknown'}
+        <div class="text-white/80 text-[12px] sm:text-[13px]">
+          {locationParts.slice(1).join(", ") || "Unknown"}
         </div>
       </div>
     {:else}
       <div
-        class="w-14 h-14 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center text-white text-xl font-semibold shadow-lg"
+        class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center text-white text-lg sm:text-xl font-semibold shadow-lg"
       >
-        <i class="fas fa-map-marker-alt text-sm"></i>
+        <i class="fas fa-map-marker-alt text-xs sm:text-sm"></i>
       </div>
       <div class="flex-1">
-        <div class="text-white text-[15px] font-semibold mb-0.5">Location unavailable</div>
-        <div class="text-white/80 text-[13px]">Enable location services</div>
+        <div class="text-white text-[14px] sm:text-[15px] font-semibold mb-0.5">
+          Location unavailable
+        </div>
+        <div class="text-white/80 text-[12px] sm:text-[13px]">
+          Enable location services
+        </div>
       </div>
     {/if}
     <div
-      class="text-white/70 text-[13px] font-medium px-3 py-1.5 rounded-full bg-white/20"
+      class="text-white/70 text-[11px] sm:text-[13px] font-medium px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/20"
     >
       Find My
     </div>
@@ -265,8 +359,10 @@
       style="transform: translateX({translateX}%)"
     >
       <!-- Page 1 -->
-      <div class="min-w-full px-2">
-        <div class="grid grid-cols-4 gap-y-6 gap-x-5 mx-auto max-w-full px-0.5">
+      <div class="min-w-full px-1 sm:px-2">
+        <div
+          class="grid grid-cols-4 gap-y-4 gap-x-3 sm:gap-y-5 sm:gap-x-4 mx-auto max-w-full px-0.5"
+        >
           <!-- Messages -->
           <a href="/chat" class={appIconClass}>
             <div
@@ -463,8 +559,10 @@
       </div>
 
       <!-- Page 2 -->
-      <div class="min-w-full px-2">
-        <div class="grid grid-cols-4 gap-y-6 gap-x-5 mx-auto max-w-full px-0.5">
+      <div class="min-w-full px-1 sm:px-2">
+        <div
+          class="grid grid-cols-4 gap-y-4 gap-x-3 sm:gap-y-5 sm:gap-x-4 mx-auto max-w-full px-0.5"
+        >
           <!-- Reminders -->
           <div class={appIconClass}>
             <div
@@ -563,7 +661,7 @@
   </div>
 
   <!-- Page Dots -->
-  <div class="flex items-center justify-center gap-2 mt-auto mb-3">
+  <div class="flex items-center justify-center gap-2 mt-auto mb-2 sm:mb-3">
     {#each Array(totalPages) as _, i}
       <button
         onclick={() => goToPage(i)}
@@ -575,57 +673,6 @@
     {/each}
   </div>
 
-  <!-- iOS Dock -->
-  <div
-    class="fixed left-1/2 -translate-x-1/2 flex gap-6 px-5 py-3.5 z-[100] rounded-[30px] bg-white/12 backdrop-blur-[40px] border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
-    style="bottom: 20px; backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px);"
-  >
-    <a href="/chat" class={appIconClass}>
-      <div
-        class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#32D74B_0%,#248A3D_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
-      >
-        <i
-          class="fas fa-comment text-white"
-          style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"
-        ></i>
-      </div>
-    </a>
-
-    <a href="/safari" class={appIconClass}>
-      <div
-        class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
-      >
-        <i
-          class="fas fa-compass text-white"
-          style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"
-        ></i>
-      </div>
-    </a>
-
-    <a href="/music" class={appIconClass}>
-      <div
-        class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
-        style="background: linear-gradient(135deg, #FF375F 0%, #FF2D55 100%);"
-      >
-        <i
-          class="fas fa-music text-white"
-          style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"
-        ></i>
-      </div>
-    </a>
-
-    <a href="/photos" class={appIconClass}>
-      <div
-        class="w-[64px] h-[64px] flex items-center justify-center text-[36px] relative overflow-hidden rounded-[23%] bg-[linear-gradient(135deg,#0A84FF_0%,#0051D5_100%)] shadow-[0_4px_12px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
-      >
-        <i
-          class="fas fa-images text-white"
-          style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);"
-        ></i>
-      </div>
-    </a>
-  </div>
-
   <!-- Control Center Button -->
   <button
     onclick={() =>
@@ -633,10 +680,10 @@
     ontouchstart={handleButtonTouchStart}
     ontouchmove={handleButtonTouchMove}
     ontouchend={handleButtonTouchEnd}
-    class="fixed w-14 h-14 rounded-full bg-gradient-to-br from-white/25 to-white/15 border border-white/30 z-[100] shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex items-center justify-center {isDraggingButton
+    class="absolute w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-white/25 to-white/15 border border-white/30 z-[100] shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex items-center justify-center {isDraggingButton
       ? ''
       : 'transition-all duration-300 active:scale-95'}"
-    style="top: {buttonY}px; {buttonX}: 16px; backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); {isDraggingButton
+    style="top: {buttonY}px; {buttonX}: 12px; backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); {isDraggingButton
       ? 'transition: none;'
       : ''}"
   >
