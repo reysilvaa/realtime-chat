@@ -43,7 +43,8 @@
 
     <!-- Screen Content -->
     <div
-      class="flex-1 bg-black overflow-hidden relative [&_:global(.ios-homescreen)]:overflow-hidden [&_:global(*::-webkit-scrollbar)]:hidden"
+      class="flex-1 bg-black overflow-x-hidden relative [&_:global(.ios-homescreen)]:overflow-hidden [&_:global(*::-webkit-scrollbar)]:hidden"
+      style="overflow-y: auto; -webkit-overflow-scrolling: touch;"
     >
       {#if children}
         {@render children()}
@@ -52,7 +53,7 @@
 
     <!-- Home Indicator -->
     <div
-      class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-white/30 rounded-[3px] z-[10000]"
+      class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-white/30 rounded-[3px] z-[10000] pointer-events-none"
     ></div>
   </div>
 </div>

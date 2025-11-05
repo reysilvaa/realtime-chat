@@ -150,13 +150,13 @@
 </svelte:head>
 
 <div
-  class="h-screen px-4 sm:px-6 relative overflow-hidden flex flex-col bg-gradient-to-b from-[#87CEEB] via-[#5B9FD7] to-[#4A90C8]"
+  class="h-screen px-4 sm:px-6 relative flex flex-col bg-gradient-to-b from-[#87CEEB] via-[#5B9FD7] to-[#4A90C8]"
   style="padding-top: 70px; padding-bottom: 140px;"
 >
-  <!-- iOS Dock - Inside iPhone Frame -->
+  <!-- iOS Dock - Inside iPhone Frame (positioned to stay visible) -->
   <div
-    class="absolute left-1/2 -translate-x-1/2 flex gap-3 sm:gap-4 px-3 sm:px-4 py-2.5 sm:py-3 z-[100] rounded-[24px] sm:rounded-[30px] bg-white/12 backdrop-blur-[40px] border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
-    style="bottom: 16px; backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px);"
+    class="absolute left-1/2 -translate-x-1/2 flex gap-4 sm:gap-6 px-5 sm:px-6 py-3 sm:py-3.5 z-[10000] rounded-[30px] sm:rounded-[35px] bg-white/12 backdrop-blur-[40px] border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
+    style="bottom: 20px; left: 16px; right: 16px; width: auto; max-width: none; backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); pointer-events: auto;"
   >
     <a href="/chat" class={appIconClass} aria-label="Messages">
       <div
@@ -349,10 +349,11 @@
 
   <!-- iOS App Grid Container with Swipe -->
   <div
-    class="relative z-10 overflow-hidden flex-1"
+    class="relative z-10 overflow-x-hidden overflow-y-auto flex-1"
     ontouchstart={handleTouchStart}
     ontouchmove={handleTouchMove}
     ontouchend={handleTouchEnd}
+    style="overflow-y: auto; padding-bottom: 80px;"
   >
     <div
       class="flex transition-transform duration-300 ease-out h-full"
