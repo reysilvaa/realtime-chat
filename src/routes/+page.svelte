@@ -156,7 +156,7 @@
   <!-- iOS Dock - Inside iPhone Frame (positioned to stay visible) -->
   <div
     class="absolute flex items-center justify-center gap-5 sm:gap-6 px-5 sm:px-6 py-4 sm:py-4.5 z-[10000] rounded-[34px] sm:rounded-[38px] bg-white/12 backdrop-blur-[40px] border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
-    style="bottom: 20px; left: 0; right: 0; width: 100%; backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); pointer-events: auto;"
+    style="bottom: 20px; left: -16px; right: -16px; width: calc(100% + 32px); backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); pointer-events: auto;"
   >
     <a
       href="/chat"
