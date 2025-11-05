@@ -22,7 +22,8 @@
 </script>
 
 <div
-  class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] h-screen flex items-center justify-center bg-[radial-gradient(circle_at_center,#1a1a1a_0%,#000000_100%)] z-[999999] p-5 max-[430px]:static max-[430px]:transform-none max-[430px]:max-w-full max-[430px]:p-0"
+  class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] h-screen h-[100dvh] flex items-center justify-center bg-[radial-gradient(circle_at_center,#1a1a1a_0%,#000000_100%)] z-[999999] p-5 max-[430px]:static max-[430px]:transform-none max-[430px]:max-w-full max-[430px]:p-0 max-[430px]:h-screen max-[430px]:h-[100dvh]"
+  style="height: 100vh; height: 100dvh;"
 >
   <div
     class="w-full max-w-[390px] h-[844px] bg-black rounded-[55px] relative overflow-hidden flex flex-col max-[430px]:max-w-full max-[430px]:h-screen max-[430px]:rounded-none"
