@@ -4,6 +4,7 @@
   import type { Snippet } from "svelte";
   import IPhoneFrame from "$lib/components/shared/iPhoneFrame.svelte";
   import Notification from "$lib/components/shared/Notification.svelte";
+  import PWAInstallPrompt from "$lib/components/shared/PWAInstallPrompt.svelte";
   import { theme } from "$lib/stores/theme";
   import { registerServiceWorker } from "$lib/utils/pwa";
 
@@ -60,3 +61,4 @@
 </IPhoneFrame>
 
 <Notification />
+<PWAInstallPrompt />

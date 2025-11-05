@@ -41,3 +41,8 @@ export interface Stats {
 }
 
 export type ConnectionStatus = 'connected' | 'connecting' | 'disconnected' | 'error';
+
+export interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
+}
